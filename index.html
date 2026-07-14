@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>泰国三城：曼谷 → 清迈 → 苏梅岛</title>
+<meta name="description" content="9月22日–10月1日 · 曼谷 + 清迈 + 苏梅岛 · 10天9晚">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root {
+  --bg-primary:    #ffffff;
+  --bg-secondary:  #f5f5f7;
+  --bg-tertiary:   #fbfbfd;
+  --bg-grouped:    #f2f2f7;
+  --bg-elevated:   #ffffff;
+  --text-primary:   #1d1d1f;
+  --text-secondary: #86868b;
+  --text-tertiary:  #aeaeb2;
+  --accent:        #0071e3;
+  --accent-hover:  #0077ed;
+  --tint-red:    #ff3b30;
+  --tint-orange: #ff9500;
+  --tint-green:  #34c759;
+  --tint-blue:   #007aff;
+  --tint-purple: #af52de;
+  --tint-pink:   #ff2d55;
+  --separator:  rgba(60, 60, 67, .12);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:  0 4px 14px rgba(0,0,0,.08);
+  --shadow-lg:  0 8px 30px rgba(0,0,0,.12);
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+  --safe-top:    env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+               "Helvetica Neue", "Arial", sans-serif;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.47059;
+  letter-spacing: -0.022em;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+#map { width: 100%; height: 40vh; min-height: 280px; position: sticky; top: 0; z-index: 100; }
+.locate-btn {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+  border: none; box-shadow: 0 1px 4px rgba(0,0,0,.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.locate-btn.active { color: #007aff; }
+@keyframes loc-pulse {
+  0%   { transform: scale(1); opacity: .55; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.loc-pulse {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: rgba(0,122,255,.25);
+  animation: loc-pulse 1.6s ease-out infinite;
+}
+
+.tabs {
+  display: flex; gap: 6px; padding: 12px 16px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  background: rgba(255,255,255,.85); -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px); position: sticky; top: 40vh; z-index: 99;
+  border-bottom: .5px solid var(--separator); scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0; padding: 7px 16px; border-radius: 980px; border: none;
+  background: var(--bg-grouped); color: var(--text-secondary);
+  font-size: 14px; font-weight: 500; cursor: pointer; transition: all .25s ease;
+  white-space: nowrap; letter-spacing: -0.01em;
+}
+.tab:active { transform: scale(.96); }
+.tab.active { background: var(--accent); color: #fff; }
+
+.content { max-width: 680px; margin: 0 auto; padding: 16px 16px calc(24px + var(--safe-bottom)); }
+
+.hero { text-align: center; padding: 28px 20px 20px; }
+.hero h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
+.hero .subtitle { font-size: 17px; color: var(--text-secondary); margin-top: 6px; font-weight: 400; }
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.info-card { background: var(--bg-elevated); border-radius: var(--radius-lg); padding: 16px; box-shadow: var(--shadow-sm); }
+.info-card .label { font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .02em; margin-bottom: 6px; }
+.info-card .value { font-size: 15px; font-weight: 600; line-height: 1.4; }
+
+.section-head { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .03em; padding: 20px 0 8px; }
+
+.day-head { padding: 20px 0 12px; }
+.day-head h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.day-head p { font-size: 15px; color: var(--text-secondary); margin-top: 2px; }
+
+.route-bar { background: var(--bg-elevated); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 14px; box-shadow: var(--shadow-sm); font-size: 13px; color: var(--text-secondary); line-height: 1.7; white-space: pre-line; }
+.route-bar strong { color: var(--text-primary); }
+
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ''; position: absolute; left: 7px; top: 20px; bottom: 20px; width: 1.5px; background: var(--separator); }
+.tl-item { position: relative; margin-bottom: 10px; }
+.tl-dot { position: absolute; left: -20px; top: 18px; width: 10px; height: 10px; border-radius: 50%; z-index: 1; box-shadow: 0 0 0 3px var(--bg-secondary); }
+.tl-dot.food    { background: var(--tint-red); }
+.tl-dot.spot    { background: var(--tint-blue); }
+.tl-dot.hotel   { background: var(--tint-orange); }
+.tl-dot.drink   { background: var(--tint-purple); }
+.tl-dot.transport { background: var(--text-tertiary); }
+
+.card { background: var(--bg-elevated); border-radius: var(--radius-md); padding: 14px 16px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; cursor: pointer; }
+.card:active { box-shadow: var(--shadow-md); }
+.card .time { font-size: 12px; font-weight: 600; color: var(--text-tertiary); letter-spacing: .01em; }
+.card .name { font-size: 17px; font-weight: 600; margin: 2px 0 4px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 6px; }
+.card .desc { font-size: 14px; color: var(--text-secondary); line-height: 1.45; }
+
+.badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; }
+.badge.food   { background: rgba(255,59,48,.1);  color: var(--tint-red); }
+.badge.spot   { background: rgba(0,122,255,.1);  color: var(--tint-blue); }
+.badge.drink  { background: rgba(175,82,222,.1); color: var(--tint-purple); }
+
+.budget { display: inline-block; margin-top: 6px; padding: 3px 10px; background: var(--bg-grouped); border-radius: var(--radius-sm); font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+
+.pays { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+.pay { font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: 600; }
+.pay.ok  { background: rgba(52,199,89,.1);  color: var(--tint-green); }
+.pay.no  { background: rgba(255,59,48,.08); color: var(--tint-red); }
+.pay.idk { background: rgba(255,149,0,.1);  color: var(--tint-orange); }
+
+.links { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 8px 14px; border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+  text-decoration: none !important; transition: filter .2s;
+}
+.btn:active { filter: brightness(.9); }
+.btn.nav    { background: var(--accent); color: #fff; }
+.btn.xhs    { background: #ff2442; color: #fff; }
+.btn.dp     { background: #ffa700; color: #fff; }
+.btn.rsv    { background: var(--tint-green); color: #fff; }
+
+.as-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,.35); backdrop-filter: blur(2px);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.as-overlay.show { opacity: 1; pointer-events: auto; }
+.as-sheet {
+  width: 100%; max-width: 420px;
+  padding: 0 8px 34px;
+  transform: translateY(100%); transition: transform .3s cubic-bezier(.22,1,.36,1);
+}
+.as-overlay.show .as-sheet { transform: translateY(0); }
+.as-group {
+  background: rgba(255,255,255,.88); backdrop-filter: blur(20px);
+  border-radius: 14px; overflow: hidden; margin-bottom: 8px;
+}
+.as-group .as-item {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 16px; font-size: 18px; color: #007aff; font-weight: 500;
+  border: none; background: none; width: 100%; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.as-group .as-item + .as-item { border-top: .5px solid rgba(0,0,0,.12); }
+.as-group .as-item:active { background: rgba(0,0,0,.06); }
+.as-cancel { font-weight: 600; }
+
+.details {
+  margin-top: 10px; padding-top: 10px;
+  border-top: .5px solid var(--separator);
+  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+}
+.details.closed { display: none; }
+
+.day-list .card { margin-bottom: 8px; }
+.day-list .card .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+
+.pay-summary { background: var(--bg-elevated); border-radius: var(--radius-md); padding: 14px 16px; box-shadow: var(--shadow-sm); font-size: 13px; line-height: 1.7; margin-bottom: 10px; }
+.pay-summary h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.pay-summary .warn { color: var(--tint-red); }
+.pay-summary .ok-text { color: var(--tint-green); }
+
+.legend { display: flex; gap: 14px; flex-wrap: wrap; padding: 8px 0; font-size: 12px; color: var(--text-secondary); }
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.leaflet-popup-content-wrapper { border-radius: var(--radius-md) !important; box-shadow: var(--shadow-lg) !important; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif !important; }
+.leaflet-popup-content { font-size: 14px !important; line-height: 1.5 !important; margin: 12px 14px !important; }
+.leaflet-popup-content a { color: var(--accent) !important; }
+.leaflet-popup-tip { background: #fff !important; }
+.leaflet-control-zoom a { width: 34px !important; height: 34px !important; line-height: 34px !important; font-size: 16px !important; border-radius: 10px !important; background: rgba(255,255,255,.85) !important; -webkit-backdrop-filter: blur(10px) !important; backdrop-filter: blur(10px) !important; border: .5px solid var(--separator) !important; color: var(--text-primary) !important; }
+.leaflet-control-zoom { border-radius: 12px !important; overflow: hidden; box-shadow: var(--shadow-md) !important; border: none !important; }
+.leaflet-control-attribution { font-size: 9px !important; opacity: .5; }
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+<div class="tabs" id="tabs"></div>
+<div class="content" id="content"></div>
+
+<script>
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  HOTEL & DAYS DATA                                          ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+const HOTEL = { name: 'Sacha\'s Hotel Uno · 曼谷', lat: 13.7370, lng: 100.5600 };
+
+const DAYS = [
+  { id: 0, label: '总览', color: '#0071e3', locations: [] },
+
+  // ── DAY 1: 福州 → 曼谷 ──
+  { id: 1, label: 'D1 曼谷', date: '9月22日 周二', title: '🛫 福州 → 曼谷', color: '#ff9500', locations: [
+    { name: '福州长乐机场 (FOC)', lat: 25.9350, lng: 119.6630, type: 'transport', time: '17:45',
+      desc: '春秋航空 9C7301，直飞曼谷素万那普，约3小时50分',
+      budget: '¥500–800/人', detail: '每周二、四、六执飞。提前1–2个月在春秋航空官网或携程订票最划算。行李额需另外购买。',
+      pay: { alipay: 1, wechat: 1, cash: 0.5 },
+      gmap: 'Fuzhou+Changle+International+Airport' },
+    { name: '曼谷素万那普机场 (BKK)', lat: 13.6900, lng: 100.7501, type: 'transport', time: '20:55',
+      desc: '抵达曼谷（当地时间），入境后打车去酒店约40分钟',
+      budget: '打车约300–400THB', detail: '建议用Grab打车，机场到Asok区约40分钟。出租车在1楼出口，记得让司机打表（by meter）。',
+      pay: { cash: 1, card: 0.5 } },
+    { name: 'Sacha\'s Hotel Uno', lat: 13.7370, lng: 100.5600, type: 'hotel', time: '22:00',
+      desc: '入住 Sukhumvit/Asok 区域，BTS Asok站步行2分钟',
+      budget: '¥230/晚', detail: '位置极佳，对面有7-11，附近小吃摊和按摩店密集。Booking评分8.8。建议提前2–4周在Agoda/Booking预订。',
+      pay: { card: 1, alipay: 0.5, cash: 1 },
+      gmap: 'Sacha+Hotel+Uno+Bangkok' },
+    { name: 'Jodd Fairs 夜市', lat: 13.7550, lng: 100.5684, type: 'food', time: '23:00',
+      desc: '火山排骨、芒果糯米饭、泰式奶茶，营业到凌晨',
+      budget: '¥40–80/人', detail: '曼谷最火的新夜市，原拉差达火车夜市搬迁而来。必吃：火山排骨（辣度可选）、烤大虾、芒果糯米饭。大多数摊位只收现金。',
+      pay: { cash: 1, alipay: 0.5 },
+      gmap: 'Jodd+Fairs+Night+Market+Bangkok' }
+  ]},
+
+  // ── DAY 2: 曼谷全天 ──
+  { id: 2, label: 'D2 曼谷', date: '9月23日 周三', title: '🏙️ 曼谷 · 拍照+购物+SPA', color: '#ff9500', locations: [
+    { name: '郑王庙 (Wat Arun) 河对岸机位', lat: 13.7437, lng: 100.4888, type: 'spot', time: '10:30',
+      desc: '不进庙，河对岸拍外景，渡河船4泰铢，ins最佳机位',
+      budget: '4THB渡船费', detail: '从Tha Tien码头坐渡河船到对岸，在船上看郑王庙就已经是最佳角度。对岸有咖啡馆可以坐着慢慢拍。穿浅色衣服更出片。',
+      gmap: 'Wat+Arun+Bangkok' },
+    { name: 'Siam 商圈', lat: 13.7464, lng: 100.5347, type: 'spot', time: '13:30',
+      desc: 'Siam Discovery → Siam Paragon → CentralWorld，曼谷最大购物区',
+      budget: '看心情', detail: 'Siam Paragon底层有超大的美食广场。CentralWorld有泰国本土设计师品牌。如果累了可以去Terminal 21（就在Asok，回酒店近）。',
+      pay: { card: 1, alipay: 1, wechat: 1, cash: 0.5 },
+      gmap: 'Siam+Paragon+Bangkok' },
+    { name: 'Som Tam Nua 青木瓜沙拉', lat: 13.7450, lng: 100.5390, type: 'food', time: '12:00',
+      desc: 'Siam商圈附近，曼谷最出名青木瓜沙拉专门店，也卖炸鸡和糯米饭',
+      budget: '¥40–60/人', detail: '本地人和游客都排队的名店。招牌青木瓜沙拉+炸鸡翅+糯米粉，地道泰东北风味。不吃生食的话点炸鸡和烤猪肉也完全OK。',
+      pay: { cash: 1, card: 0.5 },
+      gmap: 'Som+Tam+Nua+Siam+Bangkok' },
+    { name: '唐人街 Yaowarat', lat: 13.7410, lng: 100.5084, type: 'food', time: '19:00',
+      desc: '曼谷唐人街夜市，烤鱿鱼、猪脚饭、泰式炒粉，烟火气拉满',
+      budget: '¥50–80/人', detail: '曼谷最有烟火气的美食街，全熟食没有生食问题。推荐：Yaowarat Toast Bread（烤面包）、猪脚饭（Khao Kha Moo）、泰式炒河粉。周五六晚最热闹，周三去人少些反而舒服。',
+      pay: { cash: 1 },
+      gmap: 'Yaowarat+Road+Bangkok+Chinatown' },
+    { name: 'Health Land Asok SPA', lat: 13.7370, lng: 100.5605, type: 'spot', time: '21:00',
+      desc: '🧖 SPA ① 传统泰式按摩 2小时，650THB，性价比之王',
+      budget: '¥130/人', detail: '曼谷老牌连锁SPA，技师手法稳定。推荐传统泰式按摩2小时（650THB）。建议提前1天电话预约：+66 2-261-2260。精油按摩评价一般，选传统泰式最稳。',
+      pay: { cash: 1, card: 1 },
+      reserve: 'https://www.healthlandspa.com/',
+      gmap: 'Health+Land+Asok+Bangkok' }
+  ]},
+
+  // ── DAY 3: 曼谷 → 清迈 ──
+  { id: 3, label: 'D3 清迈', date: '9月24日 周四', title: '🛫 曼谷 → 清迈 · 古城初探', color: '#34c759', locations: [
+    { name: '廊曼机场 (DMK)', lat: 13.9125, lng: 100.6070, type: 'transport', time: '07:30',
+      desc: '曼谷老机场，廉航大本营，Grab打车约30分钟',
+      budget: '打车约200–300THB', detail: '泰国亚航、狮航、Nok Air都在这里。注意不是素万那普（BKK），别跑错机场。',
+      gmap: 'Don+Mueang+Airport+Bangkok' },
+    { name: '清迈国际机场 (CNX)', lat: 18.7669, lng: 98.9625, type: 'transport', time: '10:15',
+      desc: '曼谷→清迈，泰亚航/狮航，1小时10分，每天多班',
+      budget: '¥110–180/人', detail: '从廊曼DMK出发，选早班机（8:00–9:00之间航班很多）。提前3–4周在AirAsia或Lion Air官网买最便宜。',
+      gmap: 'Chiang+Mai+International+Airport' },
+    { name: 'Wachira Guesthouse', lat: 18.7870, lng: 98.9880, type: 'hotel', time: '11:00',
+      desc: '入住清迈古城民宿，老板会中文，步行到契迪龙寺3分钟',
+      budget: '¥100/晚', detail: '十年没涨价的老牌民宿，老板会中文沟通无碍。古城核心位置，到夜市和寺庙都是步行距离。可提前入住/延迟退房（视空房情况），不收费。',
+      pay: { cash: 1, card: 0.5 },
+      gmap: 'Wachira+Guesthouse+Chiang+Mai' },
+    { name: 'Khao Soi Khun Yai 咖喱面', lat: 18.7930, lng: 98.9880, type: 'food', time: '12:00',
+      desc: '清迈最正宗的泰北咖喱面（Khao Soi），古城北边老店',
+      budget: '¥10–15/人', detail: '只开中午，卖完就收。招牌咖喱面分鸡肉/牛肉/猪肉，汤底浓郁，面条一半炸一半煮。配一杯泰式奶茶，地道清迈第一餐。',
+      pay: { cash: 1 },
+      gmap: 'Khao+Soi+Khun+Yai+Chiang+Mai' },
+    { name: '契迪龙寺 & 帕辛寺 门口', lat: 18.7870, lng: 98.9865, type: 'spot', time: '14:00',
+      desc: '古城散步路过，门口拍照，古树+古塔废墟感，不进庙不收费',
+      budget: '免费', detail: '契迪龙寺的佛塔有600年历史，门口的百年古树很震撼，站门口就能拍。帕辛寺的金顶在阳光下很亮，门外拍就够了。古城边长仅1.6公里，全程步行。',
+      gmap: 'Wat+Chedi+Luang+Chiang+Mai' },
+    { name: '塔佩门广场', lat: 18.7880, lng: 98.9920, type: 'spot', time: '17:00',
+      desc: '红砖古城墙+鸽子=清迈标准打卡照，傍晚光线最好',
+      budget: '免费', detail: '清迈古城东门，红砖城墙保存最完好的一段。傍晚光线柔和，鸽子+城墙=ins风大片。有当地人卖鸽食（20THB），但拍照不喂也行。',
+      gmap: 'Tha+Phae+Gate+Chiang+Mai' },
+    { name: '长康路夜市 Night Bazaar', lat: 18.7852, lng: 98.9997, type: 'food', time: '19:00',
+      desc: '清迈每晚都有的夜市，手工艺品+小吃，逛吃首选',
+      budget: '¥30–60/人', detail: '跟周末夜市不同，Night Bazaar每晚都开。小吃集中在Anusarn Market区域，泰北香肠、烤鸡、水果沙冰都是熟食。手工艺品记得砍价，6–7折起步。',
+      pay: { cash: 1, alipay: 0.5 },
+      gmap: 'Chiang+Mai+Night+Bazaar' }
+  ]},
+
+  // ── DAY 4: 清迈 · 奶奶厨房 ──
+  { id: 4, label: 'D4 清迈', date: '9月25日 周五', title: '🍳 清迈 · 奶奶厨房烹饪日', color: '#34c759', locations: [
+    { name: 'Grandma\'s Home Cooking School', lat: 18.7220, lng: 99.0300, type: 'food', time: '08:30',
+      desc: '🍳 奶奶厨房烹饪课！逛菜市场→有机农场→学做冬阴功+绿咖喱+Pad Thai+芒果糯米饭',
+      budget: '¥178–238/人', detail: '清迈必打卡体验第5名。上午场8:30–14:00，含酒店接送+逛传统市场+参观有机农场（摘菜、捡鸡蛋）+学做3道菜+芒果糯米饭+饮品。中文老师可选，全程免费跟拍，零基础友好。做完自己当午饭吃，菜量大。提前3–7天在飞猪/携程/Klook预订。',
+      pay: { alipay: 1, card: 1 },
+      reserve: 'https://www.klook.com/zh-CN/activity/99985-grandma-home-cooking-school-chiang-mai/',
+      gmap: 'Grandma+Home+Cooking+School+Chiang+Mai' },
+    { name: '宁曼路 (Nimmanhaemin)', lat: 18.7980, lng: 98.9675, type: 'spot', time: '15:30',
+      desc: '清迈文创街区，咖啡馆、设计师小店、One Nimman商场',
+      budget: '看心情', detail: '清迈年轻人的聚集地。推荐咖啡馆：Graph Café（特调咖啡）、Ristr8to（拿铁拉花冠军）。One Nimman是红砖建筑风格的文创商场，很好拍。Maya购物中心也在旁边。',
+      pay: { cash: 0.5, card: 1, alipay: 1 },
+      gmap: 'Nimmanhaemin+Road+Chiang+Mai' },
+    { name: '清迈门夜市', lat: 18.7830, lng: 98.9880, type: 'food', time: '18:30',
+      desc: '比Night Bazaar更local，泰北香肠、烤鸡、水果、糯米饭',
+      budget: '¥20–40/人', detail: '清迈门（Chiang Mai Gate）南边的夜市，本地人为主。泰北特色Sai Oua（泰北香肠）必试，还有烤鸡腿、芒果糯米饭、新鲜水果切盒。价格比Night Bazaar便宜30%。',
+      pay: { cash: 1 },
+      gmap: 'Chiang+Mai+Gate+Night+Market' }
+  ]},
+
+  // ── DAY 5: 清迈 · Jing Jai Market + SPA ──
+  { id: 5, label: 'D5 清迈', date: '9月26日 周六', title: '🌿 清迈 · Jing Jai Market + SPA', color: '#34c759', locations: [
+    { name: 'Jing Jai Market (JJ Market)', lat: 18.8084, lng: 98.9880, type: 'spot', time: '07:00',
+      desc: '🌿 周末限定！手冲咖啡+手工面包+有机蔬果+本地设计师+Good Goods编织篮',
+      budget: '¥50–150/人', detail: '清迈最精致的周末市集，周六日6:00–14:00。手冲咖啡摊位、手工酸面包、有机农场蔬果、本地设计师服装首饰。Good Goods编织篮比曼谷便宜款式全，趁早去抢。带现金、穿舒适的鞋、7点去人少不热。Grab打车约80–120THB。',
+      pay: { cash: 1, alipay: 0.5 },
+      gmap: 'Jing+Jai+Market+Chiang+Mai' },
+    { name: 'Lila Thai Massage (Prapokklao总店)', lat: 18.7880, lng: 98.9860, type: 'spot', time: '15:00',
+      desc: '🧖 SPA ② 清迈女子监狱按摩，传统泰式2小时 ¥100–130',
+      budget: '¥100–130/人', detail: '前女子监狱典狱长创办，为刑释女性提供就业。古城内7家分店，Prapokklao总店环境最好。选传统泰式2小时（500–650THB）。建议提前1天电话预约：+66 53 327 043。跟Health Land感觉完全不同，更有清迈味道。',
+      pay: { cash: 1, alipay: 0.5 },
+      reserve: 'https://www.klook.com/zh-CN/activity/9019-lila-thai-massage-chiang-mai/',
+      gmap: 'Lila+Thai+Massage+Prapokklao+Chiang+Mai' },
+    { name: 'Huen Phen 泰北菜', lat: 18.7850, lng: 98.9870, type: 'food', time: '18:00',
+      desc: '古城内老牌泰北菜馆，蚂蚁蛋汤、泰北咖喱、炸猪皮',
+      budget: '¥30–60/人', detail: '清迈最有名的泰北菜馆，开了几十年。推荐：Gaeng Hang Lay（泰北咖喱猪肉）、Nam Prik Ong（番茄肉酱蘸蔬菜）、炸猪皮。门口不起眼但里面别有洞天。不吃生食完全没问题，泰北菜以炖煮和油炸为主。',
+      pay: { cash: 1, card: 0.5 },
+      gmap: 'Huen+Phen+Chiang+Mai' }
+  ]},
+
+  // ── DAY 6: 清迈 → 苏梅岛 ──
+  { id: 6, label: 'D6 苏梅', date: '9月27日 周日', title: '🛫 清迈 → 苏梅岛 · 上岛躺平', color: '#007aff', locations: [
+    { name: '苏梅岛机场 (USM)', lat: 9.5478, lng: 100.0625, type: 'transport', time: '13:20',
+      desc: '曼谷航空PG242，清迈直飞苏梅，1小时45分，全球最美花园机场',
+      budget: '¥700–900/人', detail: '曼谷航空垄断此航线，建议提前1–2个月买。苏梅机场本身就是景点——露天候机厅、花园走道、免费小食。9月是淡季，票价是全年最低之一。',
+      gmap: 'Samui+International+Airport' },
+    { name: '查汶海滩酒店', lat: 9.5270, lng: 100.0580, type: 'hotel', time: '14:00',
+      desc: '入住查汶海滩区域，步行到海滩3分钟',
+      budget: '¥200–300/晚', detail: '查汶是苏梅最繁华的区域，餐厅酒吧商店密集。推荐：Chaweng Beach Hotel（¥200起）或Mercure Samui Chaweng Tana（¥500起，有泳池）。通过携程/Agoda比价预订。',
+      pay: { card: 1, cash: 1, alipay: 0.5 },
+      gmap: 'Chaweng+Beach+Hotel+Koh+Samui' },
+    { name: '查汶海滩', lat: 9.5290, lng: 100.0600, type: 'spot', time: '15:00',
+      desc: '🏖️ 苏梅最长沙滩，沙细水清，开躺！',
+      budget: '免费', detail: '苏梅岛东海岸，绵延7公里的白沙海滩。沙细如粉，水清见底。9月底人少，不用抢躺椅。沙滩边有餐厅和酒吧，可以点杯椰子坐着看海。',
+      gmap: 'Chaweng+Beach+Koh+Samui' },
+    { name: '拉迈周日夜市', lat: 9.4670, lng: 100.0460, type: 'food', time: '18:00',
+      desc: '苏梅最大的周日市场，烤海鲜、沙爹串、椰子冰淇淋',
+      budget: '¥40–80/人', detail: '拉迈区麦当劳对面，每周日17:00开始。比查汶的夜市更local、更便宜。烤大虾、烤鱿鱼（全熟）、沙爹猪肉串、椰子冰淇淋。记得带现金。',
+      pay: { cash: 1 },
+      gmap: 'Lamai+Sunday+Night+Market+Koh+Samui' }
+  ]},
+
+  // ── DAY 7: 苏梅岛 · 南海岸 ──
+  { id: 7, label: 'D7 苏梅', date: '9月28日 周一', title: '🏝️ 苏梅 · 南海岸探索', color: '#007aff', locations: [
+    { name: '祖父祖母石 Hin Ta & Hin Yai', lat: 9.4520, lng: 100.0400, type: 'spot', time: '10:30',
+      desc: '苏梅地标岩石景观，免费，海景壮观',
+      budget: '免费', detail: '苏梅岛最著名的自然地标，两块造型奇特的岩石。免费参观，停车方便。拍完照可以沿着台阶下到海边，晴天海景极美。上午去光线最佳。',
+      gmap: 'Hin+Ta+Hin+Yai+Koh+Samui' },
+    { name: '拉迈海滩', lat: 9.4670, lng: 100.0460, type: 'spot', time: '12:00',
+      desc: '比查汶安静，适合继续躺，海边餐厅午餐',
+      budget: '免费', detail: '查汶海滩向南10分钟车程，游客少、更安静。适合不喜欢热闹的人。海边有几家不错的餐厅，边吃边看海。',
+      gmap: 'Lamai+Beach+Koh+Samui' },
+    { name: 'Central Samui 购物中心', lat: 9.5300, lng: 100.0550, type: 'spot', time: '15:00',
+      desc: '岛上最大商场，Boots药妆+泰国本土品牌+美食广场，消暑好去处',
+      budget: '看心情', detail: '苏梅最大购物中心，有空调！Boots药妆比国内便宜30–50%，泰国本土香薰品牌（Harnn、Thann）值得买。美食广场有泰餐、日料、西餐，选择多。',
+      pay: { card: 1, alipay: 1, wechat: 1, cash: 0.5 },
+      gmap: 'Central+Samui+Shopping+Mall' },
+    { name: '查汶海边日落晚餐', lat: 9.5270, lng: 100.0620, type: 'food', time: '18:30',
+      desc: '选家海边餐厅看日落，Ark Bar沙滩晚餐或Crab Samui海鲜',
+      budget: '¥80–150/人', detail: 'Ark Bar是查汶最热闹的沙滩酒吧+餐厅，傍晚开始有DJ，可以坐在沙袋上看日落。Crab Samui主打海鲜（全熟做法），咖喱蟹招牌。9月非旺季，不用排队。',
+      pay: { cash: 1, card: 1 },
+      gmap: 'Ark+Bar+Chaweng+Koh+Samui' }
+  ]},
+
+  // ── DAY 8: 苏梅岛 · 自由日 ──
+  { id: 8, label: 'D8 苏梅', date: '9月29日 周二', title: '🏝️ 苏梅 · 自由探索日', color: '#007aff', locations: [
+    { name: '查汶海滩躺平', lat: 9.5290, lng: 100.0600, type: 'spot', time: '09:00',
+      desc: '全天无计划，沙滩、游泳、看书、晒太阳',
+      budget: '免费', detail: '海岛真正的正确打开方式——什么都不做。查汶沙滩上午人少，海水最清。沙滩上可以租躺椅（约100THB/天），买颗椰子喝着发呆。',
+      gmap: 'Chaweng+Beach+Koh+Samui' },
+    { name: 'Fisherman\'s Village (Bophut)', lat: 9.5610, lng: 100.0300, type: 'spot', time: '15:00',
+      desc: '波希米亚老街区，海边餐厅+精品店，不是周五夜市日但街区本身值得逛',
+      budget: '免费逛', detail: '步行街夜市只在周五，但周二来反而人少清净。老木屋保留完好，海边餐厅景色好。推荐Coco Tam\'s（沙滩秋千餐厅，拍照出片）和Summer by Coco Tam\'s。',
+      gmap: 'Fisherman+Village+Bophut+Koh+Samui' },
+    { name: 'Nathon 老镇', lat: 9.5370, lng: 99.9350, type: 'spot', time: '—',
+      desc: '备选：苏梅行政中心，复古木屋老街+码头日落',
+      budget: '免费', detail: '苏梅岛的行政和商业中心，保留了很多老木屋。Nathon码头是看日落的最佳地点之一。有便宜的本地餐厅和杂货店。',
+      gmap: 'Nathon+Town+Koh+Samui' },
+    { name: 'Bophut海边晚餐', lat: 9.5610, lng: 100.0300, type: 'food', time: '19:00',
+      desc: 'Fisherman\'s Village海边餐厅，苏梅最后一晚好好吃一顿',
+      budget: '¥100–200/人', detail: '推荐：Summer by Coco Tam\'s（海鲜+鸡尾酒）、Happy Elephant（泰餐+海景）。Bophut的日落是全岛最美的，提前到占个好位置。',
+      pay: { card: 1, cash: 1 },
+      gmap: 'Coco+Tams+Koh+Samui' }
+  ]},
+
+  // ── DAY 9: 苏梅岛 · 收尾 ──
+  { id: 9, label: 'D9 苏梅', date: '9月30日 周三', title: '🏝️ 苏梅 · 收尾日', color: '#007aff', locations: [
+    { name: '查汶海滩最后时光', lat: 9.5290, lng: 100.0600, type: 'spot', time: '09:00',
+      desc: '最后的海滩时光，补买手信，做个轻松的足部按摩',
+      budget: '看心情', detail: '最后的躺平时光。如果想买手信，Central Samui或查汶大街的药店/便利店可以扫货：鼻通、青草膏、泰式咖喱酱包、椰子制品。',
+      gmap: 'Chaweng+Beach+Koh+Samui' },
+    { name: '收尾泰餐', lat: 9.5280, lng: 100.0570, type: 'food', time: '19:00',
+      desc: '最后一顿泰餐，查汶大街随便找家顺眼的吃就行',
+      budget: '¥60–100/人', detail: '不用刻意找名店，查汶大街随便一家泰餐都不会踩雷。推荐最后再吃一次Pad Thai和芒果糯米饭，回国就吃不到了。',
+      pay: { cash: 1, card: 0.5 },
+      gmap: 'Chaweng+Beach+Road+Koh+Samui' }
+  ]},
+
+  // ── DAY 10: 回家 ──
+  { id: 10, label: 'D10 回程', date: '10月1日 周四', title: '🛫 苏梅 → 曼谷 → 福州', color: '#ff3b30', locations: [
+    { name: '苏梅岛机场 (USM)', lat: 9.5478, lng: 100.0625, type: 'transport', time: '06:00',
+      desc: '曼谷航空 PG100，苏梅→曼谷素万那普，1小时15分',
+      budget: '¥500–600/人', detail: '最早班机，04:00退房出发。PG100每天都有，06:00–07:15。苏梅机场很小，提前1小时到就够。',
+      gmap: 'Samui+International+Airport' },
+    { name: '曼谷素万那普机场 (BKK)', lat: 13.6900, lng: 100.7501, type: 'transport', time: '07:15',
+      desc: '中转曼谷，换乘回福州航班',
+      budget: '转机', detail: '⚠️ 关键：PG100到达BKK是07:15。如果接春秋航空BKK→FOC上午班（可能09:00左右），中转仅1小时50分，国际转机非常危险！强烈建议：①提前确认春秋确切航班时刻再买票，确保中转≥3小时；或②9月30日晚飞曼谷住机场酒店，10月1日从容登机。',
+      pay: { card: 1, cash: 1 },
+      gmap: 'Suvarnabhumi+Airport+Bangkok' },
+    { name: '福州长乐机场 (FOC)', lat: 25.9350, lng: 119.6630, type: 'transport', time: '—',
+      desc: '曼谷→福州直飞，春秋航空（周二四六），约4小时',
+      budget: '¥600–900/人', detail: '春秋航空曼谷→福州每周二、四、六执飞。10月1日是周四，有航班。厦航MF876（17:55–22:20）从10月26日才开始每日直飞，10月1日可能只有中转。请以实际查询为准。',
+      gmap: 'Fuzhou+Changle+International+Airport' }
+  ]}
+];
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  OVERVIEW CONTENT                                            ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+function overviewContent() {
+  return `
+<div class="hero"><h1>泰国三城之旅</h1><p class="subtitle">曼谷 → 清迈 → 苏梅岛 · 9月22日–10月1日 · 10天9晚</p></div>
+<div class="info-grid">
+  <div class="info-card"><div class="label">路线</div><div class="value">福州 ✈ 曼谷 ✈ 清迈 ✈ 苏梅岛 ✈ 福州</div></div>
+  <div class="info-card"><div class="label">酒店</div><div class="value">曼谷2晚 · 清迈3晚 · 苏梅4晚</div></div>
+  <div class="info-card"><div class="label">SPA</div><div class="value">Health Land 曼谷 + Lila Thai 清迈</div></div>
+  <div class="info-card"><div class="label">人均预算</div><div class="value">¥7,000–10,000 全包</div></div>
+</div>
+<div class="section-head">行程概览</div>
+<div class="day-list">${DAYS.slice(1).map(d=>`<div class="card" onclick="go(${d.id})"><div class="name"><span class="dot" style="background:${d.color}"></span>${d.label} · ${d.title}</div><div class="desc">${d.date}</div></div>`).join('')}</div>
+
+<div class="section-head">支付提醒</div>
+<div class="pay-summary"><h4>💴 现金为王</h4>泰国夜市、街边摊、双条车大多<span class="warn">只收现金</span>。建议换10,000–15,000泰铢（¥2,000–3,000）随身。<br>7-11、商场、酒店可用支付宝/微信/刷卡。</div>
+<div class="pay-summary"><h4>🧖 SPA需预约</h4>Health Land 和 Lila Thai 都建议<span class="warn">提前1天电话预约</span>，walk-in可能要等很久。<br>小费20–100THB随意，不要给硬币。</div>
+<div class="pay-summary"><h4>🍳 奶奶厨房提前订</h4>Grandma's Home Cooking School 很热门，建议<span class="warn">提前3–7天</span>在飞猪/携程/Klook预订。<br>选上午场可以逛菜市场，选中文老师。</div>
+<div class="pay-summary"><h4>⚠️ 10月1日中转提醒</h4>苏梅→曼谷早班机07:15到BKK，如果接上午的回国航班可能<span class="warn">中转时间不够</span>！<br>建议买票前确认曼谷→福州航班确切时刻，确保中转≥3小时。或9月30日晚飞曼谷住一晚。</div>
+
+<div class="section-head">图例</div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tint-red)"></div>餐厅</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tint-blue)"></div>景点</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tint-orange)"></div>酒店</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--text-tertiary)"></div>交通</div>
+</div>`;
+}
+
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  ENGINE                                                      ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+const map = L.map('map', { center: [HOTEL.lat || 13.75, HOTEL.lng || 100.55], zoom: 5, zoomControl: false, attributionControl: true });
+L.control.zoom({ position: 'topright' }).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(map);
+
+/* ── Geolocation ── */
+const LocateControl = L.Control.extend({
+  options: { position: 'bottomright' },
+  onAdd() {
+    const btn = L.DomUtil.create('button', 'locate-btn');
+    btn.innerHTML = '📍';
+    btn.title = '我的位置';
+    L.DomEvent.disableClickPropagation(btn);
+    btn.addEventListener('click', () => {
+      btn.classList.add('active');
+      map.locate({ setView: true, maxZoom: 15 });
+    });
+    this._btn = btn;
+    return btn;
+  }
+});
+new LocateControl().addTo(map);
+let locMarker, locCircle;
+map.on('locationfound', e => {
+  const r = e.accuracy / 2;
+  if (locMarker) { locMarker.setLatLng(e.latlng); locCircle.setLatLng(e.latlng).setRadius(r); }
+  else {
+    locMarker = L.marker(e.latlng, {
+      icon: L.divIcon({ className:'', html:'<div style="width:14px;height:14px;border-radius:50%;background:#007aff;border:2.5px solid #fff;box-shadow:0 0 6px rgba(0,122,255,.5)"></div><div class="loc-pulse" style="position:absolute;top:0;left:0"></div>', iconSize:[14,14], iconAnchor:[7,7] }),
+      zIndexOffset: 2000
+    }).addTo(map);
+    locCircle = L.circle(e.latlng, { radius: r, color: '#007aff', fillColor: '#007aff', fillOpacity: .08, weight: 1 }).addTo(map);
+  }
+});
+map.on('locationerror', () => {});
+
+function icon(color, emoji) {
+  return L.divIcon({ className: '', html: `<div style="width:28px;height:28px;border-radius:50%;background:${color};border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.18)">${emoji||''}</div>`, iconSize: [28,28], iconAnchor: [14,14], popupAnchor: [0,-16] });
+}
+
+let markers = [], polylines = [];
+const emojis = { food:'🍽️', spot:'📍', hotel:'🏨', transport:'✈️', drink:'🍺' };
+
+function clearMap() { markers.forEach(m=>map.removeLayer(m)); polylines.forEach(p=>map.removeLayer(p)); markers=[]; polylines=[]; }
+
+function showDay(idx) {
+  clearMap();
+  if (idx === 0) {
+    const pts = [];
+    DAYS.forEach(d => d.locations.forEach(l => { if(l.lat) pts.push([l.lat,l.lng]); }));
+    if(pts.length) map.fitBounds(pts, {padding:[30,30], maxZoom: 7});
+    DAYS.slice(1).forEach(d => {
+      d.locations.filter(l=>l.time!=='—').forEach(l => {
+        const m = L.circleMarker([l.lat,l.lng], { radius:4, fillColor:d.color, color:'#fff', weight:1.5, fillOpacity:.9 }).addTo(map).bindPopup(`<b>${l.name}</b><br><span style="color:#86868b">${d.label}</span>`);
+        markers.push(m);
+      });
+    });
+    return;
+  }
+  const day = DAYS.find(d=>d.id===idx);
+  if(!day) return;
+  const coords = [];
+  day.locations.forEach(l => {
+    if(!l.lat) return;
+    const m = L.marker([l.lat,l.lng], { icon: icon(day.color, emojis[l.type]||'📌') }).addTo(map);
+    const gmapQ = l.gmap||encodeURIComponent(l.name);
+    m.bindPopup(`<b>${l.name}</b>${l.time!=='—'?'<br><span style="color:#86868b">'+l.time+'</span>':''}<br>${l.desc}${l.budget?'<br><span style="color:#ff9500">'+l.budget+'</span>':''}<br><a href="#" onclick="event.preventDefault();openAS('${l.name.replace(/'/g,"\\'")}',${l.lat},${l.lng},'${gmapQ}')">📍 导航</a>${l.xhs?' · <a href="'+l.xhs+'" target="_blank">📕 小红书</a>':''}`);
+    markers.push(m);
+    if(l.time!=='—') coords.push([l.lat,l.lng]);
+  });
+  if(coords.length>1) { const pl = L.polyline(coords, { color:day.color, weight:2.5, opacity:.5, dashArray:'6,5' }).addTo(map); polylines.push(pl); }
+  if(coords.length) map.fitBounds(coords, { padding:[40,40], maxZoom:14 });
+}
+
+// ══════════ RENDER ══════════
+function payChips(pay) {
+  if(!pay) return '';
+  let h = '<div class="pays">';
+  const m = { cash:'💴现金', card:'💳刷卡', alipay:'支付宝', wechat:'微信' };
+  for(const [k,label] of Object.entries(m)) {
+    if(pay[k]!==undefined) { const c = pay[k]===1?'ok':pay[k]===0.5?'idk':'no'; h += `<span class="pay ${c}">${label}</span>`; }
+  }
+  return h+'</div>';
+}
+
+const IN_APP_WEBVIEW = (() => {
+  const ua = (navigator.userAgent || '').toLowerCase();
+  return /micromessenger|xhs|xhsdiscover|discover\/|tiktok|aweme|weibo|qq\/|qqbrowser|alipayclient|dingtalk|lark|feishu|ucbrowser|baiduboxapp|toutiao|newsarticle/.test(ua);
+})();
+
+function xhsKeyword(loc) {
+  if(loc.xhsKeyword) return loc.xhsKeyword.trim();
+  return (loc.name||'').replace(/⭐.*$/g,'').replace(/（.*?）/g,'').replace(/\(.*?\)/g,'').replace(/\s+/g,' ').trim();
+}
+function xhsAppUrl(loc) { return `xhsdiscover://search/result?keyword=${encodeURIComponent(xhsKeyword(loc))}&target_search=notes&source=deeplink`; }
+function xhsWebUrl(loc) { return `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(xhsKeyword(loc))}&source=web_explore_feed`; }
+
+function dpKeyword(loc) {
+  if(loc.dianpingKeyword) return loc.dianpingKeyword.trim();
+  return (loc.name||'').replace(/⭐.*$/g,'').replace(/（.*?）/g,'').replace(/\(.*?\)/g,'').replace(/\s+/g,' ').trim();
+}
+function dpAppUrl(loc) { return `dianping://searchshoplist?keyword=${encodeURIComponent(dpKeyword(loc))}`; }
+function dpWebUrl(loc) { return `https://m.dianping.com/searchshop?keyword=${encodeURIComponent(dpKeyword(loc))}`; }
+
+window._extLocs = {};
+DAYS.forEach(d => d.locations.forEach(l => { window._extLocs[`${d.id}::${l.name}`] = l; }));
+window._xhsLocs = window._extLocs;
+
+function openExt(key, kind) {
+  const loc = window._extLocs[key]; if(!loc) return false;
+  if (IN_APP_WEBVIEW) { window.location.href = kind==='dp' ? dpWebUrl(loc) : xhsWebUrl(loc); }
+  else { window.location.href = kind==='dp' ? dpAppUrl(loc) : xhsAppUrl(loc); }
+  return false;
+}
+
+function locCard(loc, dayIdx) {
+  const dot = loc.type==='food'?'food':loc.type==='spot'?'spot':loc.type==='drink'?'drink':loc.type==='hotel'?'hotel':'transport';
+  const bdg = loc.type==='food'?'<span class="badge food">餐</span>':loc.type==='spot'?'<span class="badge spot">景</span>':loc.type==='drink'?'<span class="badge drink">饮</span>':loc.type==='hotel'?'<span class="badge spot">住</span>':'<span class="badge drink">行</span>';
+  const uid = `d${dayIdx}-${loc.name.replace(/\W/g,'')}`;
+  const locKey = `${dayIdx}::${loc.name}`;
+  const gmapQ = loc.gmap||encodeURIComponent(loc.name);
+  let lnk = `<button class="btn nav" onclick="openAS('${loc.name.replace(/'/g,"\\'")}',${loc.lat},${loc.lng},'${gmapQ}')">📍 导航</button>`;
+  if(loc.xhs) {
+    lnk += `<a href="${loc.xhs}" target="_blank" class="btn xhs">📕 小红书</a>`;
+  } else {
+    const xhsHref = IN_APP_WEBVIEW ? xhsWebUrl(loc) : xhsAppUrl(loc);
+    const xhsLabel = IN_APP_WEBVIEW ? '📕 小红书' : '📕 小红书 App';
+    lnk += `<a href="${xhsHref}" onclick="return false" class="btn xhs">${xhsLabel}</a>`;
+  }
+  const dpEnabled = loc.dianping !== false && (loc.dianping || loc.dianpingKeyword || loc.type==='food' || loc.type==='drink');
+  if(dpEnabled) {
+    const dpHref = IN_APP_WEBVIEW ? dpWebUrl(loc) : dpAppUrl(loc);
+    const dpLabel = IN_APP_WEBVIEW ? '🍜 大众点评' : '🍜 大众点评 App';
+    lnk += `<a href="${dpHref}" onclick="return false" class="btn dp">${dpLabel}</a>`;
+  }
+  if(loc.reserve) lnk += `<a href="${loc.reserve}" target="_blank" class="btn rsv">📅 预约/预订</a>`;
+  return `<div class="tl-item"><div class="tl-dot ${dot}"></div><div class="card" onclick="if(!event.target.closest('.btn,.links'))toggle('${uid}')"><div class="time">${loc.time!=='—'?loc.time:'备选'}</div><div class="name">${bdg} ${loc.name}</div><div class="desc">${loc.desc}</div>${loc.budget?'<div class="budget">'+loc.budget+'</div>':''}${payChips(loc.pay)}<div class="links">${lnk}</div>${loc.detail?'<div class="details" id="'+uid+'">'+loc.detail.replace(/\n/g,'<br>')+'</div>':''}</div></div>`;
+}
+
+function renderDay(idx) {
+  const d = DAYS.find(x=>x.id===idx); if(!d) return '';
+  const main = d.locations.filter(l=>l.time!=='—');
+  const alt = d.locations.filter(l=>l.time==='—');
+  let h = `<div class="day-head"><h2>${d.title}</h2><p>${d.date}</p></div>`;
+  if(main.length) { h += '<div class="timeline">'; main.forEach(l => h += locCard(l, idx)); h += '</div>'; }
+  if(alt.length) { h += '<div class="section-head">备选</div><div class="timeline">'; alt.forEach(l => h += locCard(l, idx)); h += '</div>'; }
+  return h;
+}
+
+// ══════════ NAV ══════════
+let cur = 0;
+const tabsEl = document.getElementById('tabs');
+const contentEl = document.getElementById('content');
+
+DAYS.forEach(d => {
+  const btn = document.createElement('button');
+  btn.className = 'tab' + (d.id===0?' active':'');
+  btn.dataset.day = d.id;
+  btn.textContent = d.label;
+  tabsEl.appendChild(btn);
+});
+
+function go(idx) {
+  cur = idx;
+  tabsEl.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', +t.dataset.day===idx));
+  contentEl.innerHTML = idx===0 ? overviewContent() : renderDay(idx);
+  showDay(idx);
+  contentEl.scrollTo({top:0});
+  const tab = tabsEl.querySelector(`[data-day="${idx}"]`);
+  if(tab) tab.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+}
+
+function toggle(id) { const el=document.getElementById(id); if(el) el.classList.toggle('closed'); }
+
+tabsEl.addEventListener('click', e => { const t=e.target.closest('.tab'); if(t) go(+t.dataset.day); });
+
+go(0);
+
+/* ── Action Sheet for Navigation ── */
+const asOverlay = document.createElement('div');
+asOverlay.className = 'as-overlay';
+asOverlay.innerHTML = `<div class="as-sheet">
+  <div class="as-group" id="as-opts"></div>
+  <div class="as-group"><button class="as-item as-cancel" onclick="closeAS()">取消</button></div>
+</div>`;
+document.body.appendChild(asOverlay);
+asOverlay.addEventListener('click', e => { if (e.target === asOverlay) closeAS(); });
+
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+function openAS(name, lat, lng, gmap) {
+  const q = gmap || encodeURIComponent(name);
+  const encName = encodeURIComponent(name);
+  const safeName = name.replace(/'/g,"\\'");
+  const appleUrl = IN_APP_WEBVIEW
+    ? `https://maps.apple.com/?q=${lat},${lng}&ll=${lat},${lng}&name=${encName}`
+    : `maps://maps.apple.com/?q=${lat},${lng}&name=${encName}`;
+  const googleUrl = `https://www.google.com/maps/search/?api=1&query=${q}`;
+  document.getElementById('as-opts').innerHTML =
+    `<button class="as-item" onclick="window.open('${appleUrl}');closeAS()">🍎 Apple Maps</button>` +
+    `<button class="as-item" onclick="window.open('${googleUrl}');closeAS()">🗺️ Google Maps</button>` +
+    `<button class="as-item" onclick="window.open('https://uri.amap.com/marker?position=${lng},${lat}&name=${encName}&src=trip&coordinate=wgs84&callnative=1');closeAS()">🧭 高德地图</button>`;
+  asOverlay.classList.add('show');
+}
+function closeAS() { asOverlay.classList.remove('show'); }
+</script>
+</body>
+</html>
