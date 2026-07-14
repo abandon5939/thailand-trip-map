@@ -585,11 +585,12 @@ window._extLocs = {};
 DAYS.forEach(d => d.locations.forEach(l => { window._extLocs[`${d.id}::${l.name}`] = l; }));
 window._xhsLocs = window._extLocs;
 
-function openExt(key, kind) {
-  const loc = window._extLocs[key]; if(!loc) return false;
-  if (IN_APP_WEBVIEW) { window.location.href = kind==='dp' ? dpWebUrl(loc) : xhsWebUrl(loc); }
-  else { window.location.href = kind==='dp' ? dpAppUrl(loc) : xhsAppUrl(loc); }
-  return false;
+function openXhsBtn(loc) {
+  // 始终优先用网页版，所有环境都能打开
+  window.open(xhsWebUrl(loc), '_blank');
+}
+function openDpBtn(loc) {
+  window.open(dpWebUrl(loc), '_blank');
 }
 
 function locCard(loc, dayIdx) {
@@ -599,18 +600,20 @@ function locCard(loc, dayIdx) {
   const locKey = `${dayIdx}::${loc.name}`;
   const gmapQ = loc.gmap||encodeURIComponent(loc.name);
   let lnk = `<button class="btn nav" onclick="openAS('${loc.name.replace(/'/g,"\\'")}',${loc.lat},${loc.lng},'${gmapQ}')">📍 导航</button>`;
+  // 小红书：如果数据里有链接就用，否则拼接网页版搜索URL
   if(loc.xhs) {
     lnk += `<a href="${loc.xhs}" target="_blank" class="btn xhs">📕 小红书</a>`;
   } else {
-    const xhsHref = IN_APP_WEBVIEW ? xhsWebUrl(loc) : xhsAppUrl(loc);
-    const xhsLabel = IN_APP_WEBVIEW ? '📕 小红书' : '📕 小红书 App';
-    lnk += `<a href="${xhsHref}" onclick="return false" class="btn xhs">${xhsLabel}</a>`;
+    lnk += `<a href="${xhsWebUrl(loc)}" target="_blank" class="btn xhs">📕 小红书</a>`;
   }
+  // 大众点评：餐厅/饮品自动出现，始终用网页版
   const dpEnabled = loc.dianping !== false && (loc.dianping || loc.dianpingKeyword || loc.type==='food' || loc.type==='drink');
   if(dpEnabled) {
-    const dpHref = IN_APP_WEBVIEW ? dpWebUrl(loc) : dpAppUrl(loc);
-    const dpLabel = IN_APP_WEBVIEW ? '🍜 大众点评' : '🍜 大众点评 App';
-    lnk += `<a href="${dpHref}" onclick="return false" class="btn dp">${dpLabel}</a>`;
+    if(loc.dianping) {
+      lnk += `<a href="${loc.dianping}" target="_blank" class="btn dp">🍜 大众点评</a>`;
+    } else {
+      lnk += `<a href="${dpWebUrl(loc)}" target="_blank" class="btn dp">🍜 大众点评</a>`;
+    }
   }
   if(loc.reserve) lnk += `<a href="${loc.reserve}" target="_blank" class="btn rsv">📅 预约/预订</a>`;
   return `<div class="tl-item"><div class="tl-dot ${dot}"></div><div class="card" onclick="if(!event.target.closest('.btn,.links'))toggle('${uid}')"><div class="time">${loc.time!=='—'?loc.time:'备选'}</div><div class="name">${bdg} ${loc.name}</div><div class="desc">${loc.desc}</div>${loc.budget?'<div class="budget">'+loc.budget+'</div>':''}${payChips(loc.pay)}<div class="links">${lnk}</div>${loc.detail?'<div class="details" id="'+uid+'">'+loc.detail.replace(/\n/g,'<br>')+'</div>':''}</div></div>`;
