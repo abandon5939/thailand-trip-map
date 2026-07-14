@@ -584,8 +584,24 @@ function xhsKeyword(loc, dayIdx) {
 function xhsWebUrl(loc, dayIdx) {
   return `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(xhsKeyword(loc, dayIdx))}`;
 }
+function xhsAppUrl(loc, dayIdx) {
+  return `xhsdiscover://search/result?keyword=${encodeURIComponent(xhsKeyword(loc, dayIdx))}&target_search=notes&source=deeplink`;
+}
 function dpWebUrl(loc, dayIdx) {
   return `https://www.dianping.com/search/keyword/1/0_${encodeURIComponent(xhsKeyword(loc, dayIdx))}`;
+}
+
+// 判断是否能打开 App（通过 iframe 试探 scheme）
+function openAppOrWeb(appUrl, webUrl) {
+  const start = Date.now();
+  // 先尝试唤起 App
+  window.location.href = appUrl;
+  // 2秒后如果还在当前页面，说明 App 没装，跳网页版
+  setTimeout(function() {
+    if (Date.now() - start < 2500) {
+      window.open(webUrl, '_blank');
+    }
+  }, 2000);
 }
 
 function locCard(loc, dayIdx) {
@@ -594,13 +610,15 @@ function locCard(loc, dayIdx) {
   const uid = `d${dayIdx}-${loc.name.replace(/\W/g,'')}`;
   const gmapQ = loc.gmap||encodeURIComponent(loc.name);
   let lnk = `<button class="btn nav" onclick="openAS('${loc.name.replace(/'/g,"\\'")}',${loc.lat},${loc.lng},'${gmapQ}')">📍 导航</button>`;
-  // 小红书：所有地点都有，搜中文攻略
+  // 小红书：优先唤起App搜索，已装App的话直接跳转
   if (loc.xhs) {
     lnk += `<a href="${loc.xhs}" target="_blank" class="btn xhs">📕 小红书</a>`;
   } else {
-    lnk += `<a href="${xhsWebUrl(loc, dayIdx)}" target="_blank" class="btn xhs">📕 搜攻略</a>`;
+    const appUrl = xhsAppUrl(loc, dayIdx);
+    const webUrl = xhsWebUrl(loc, dayIdx);
+    lnk += `<a href="${appUrl}" class="btn xhs" onclick="setTimeout(function(){window.open('${webUrl}','_blank')},800)">📕 搜攻略</a>`;
   }
-  // 大众点评：只有餐厅和饮品才出现，且仅当有明确链接时
+  // 大众点评：只有餐厅/饮品才出现
   if (loc.dianping) {
     lnk += `<a href="${loc.dianping}" target="_blank" class="btn dp">🍜 大众点评</a>`;
   } else if ((loc.type==='food' || loc.type==='drink') && loc.dianping !== false) {
