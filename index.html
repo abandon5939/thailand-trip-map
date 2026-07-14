@@ -582,7 +582,7 @@ function xhsKeyword(loc, dayIdx) {
   return makeKeyword(loc.name, dayIdx);
 }
 function xhsWebUrl(loc, dayIdx) {
-  return `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(xhsKeyword(loc, dayIdx))}&source=web_search_result_notes`;
+  return `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(xhsKeyword(loc, dayIdx))}`;
 }
 function dpWebUrl(loc, dayIdx) {
   return `https://www.dianping.com/search/keyword/1/0_${encodeURIComponent(xhsKeyword(loc, dayIdx))}`;
