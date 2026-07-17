@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>泰国三城：曼谷 → 清迈 → 普吉岛</title>
-<meta name="description" content="9月22日–10月1日 · 曼谷 + 清迈 + 普吉岛 · 10天9晚 · 实战攻略增强版">
+<title>泰国双城：曼谷 → 普吉岛</title>
+<meta name="description" content="9月22日–29日 · 曼谷4晚 + 普吉岛3晚 · 8天7晚 · 实战攻略增强版">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -61,15 +61,8 @@ a:hover { text-decoration: underline; }
   font-size: 18px; cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
 .locate-btn.active { color: #007aff; }
-@keyframes loc-pulse {
-  0%   { transform: scale(1); opacity: .55; }
-  100% { transform: scale(2.4); opacity: 0; }
-}
-.loc-pulse {
-  width: 14px; height: 14px; border-radius: 50%;
-  background: rgba(0,122,255,.25);
-  animation: loc-pulse 1.6s ease-out infinite;
-}
+@keyframes loc-pulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(2.4); opacity: 0; } }
+.loc-pulse { width: 14px; height: 14px; border-radius: 50%; background: rgba(0,122,255,.25); animation: loc-pulse 1.6s ease-out infinite; }
 
 .tabs {
   display: flex; gap: 6px; padding: 12px 16px; overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -108,10 +101,10 @@ a:hover { text-decoration: underline; }
 .timeline::before { content: ''; position: absolute; left: 7px; top: 20px; bottom: 20px; width: 1.5px; background: var(--separator); }
 .tl-item { position: relative; margin-bottom: 10px; }
 .tl-dot { position: absolute; left: -20px; top: 18px; width: 10px; height: 10px; border-radius: 50%; z-index: 1; box-shadow: 0 0 0 3px var(--bg-secondary); }
-.tl-dot.food    { background: var(--tint-red); }
-.tl-dot.spot    { background: var(--tint-blue); }
-.tl-dot.hotel   { background: var(--tint-orange); }
-.tl-dot.drink   { background: var(--tint-purple); }
+.tl-dot.food { background: var(--tint-red); }
+.tl-dot.spot { background: var(--tint-blue); }
+.tl-dot.hotel { background: var(--tint-orange); }
+.tl-dot.drink { background: var(--tint-purple); }
 .tl-dot.transport { background: var(--text-tertiary); }
 
 .card { background: var(--bg-elevated); border-radius: var(--radius-md); padding: 14px 16px; box-shadow: var(--shadow-sm); transition: box-shadow .25s ease; cursor: pointer; }
@@ -121,63 +114,37 @@ a:hover { text-decoration: underline; }
 .card .desc { font-size: 14px; color: var(--text-secondary); line-height: 1.45; }
 
 .badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; }
-.badge.food   { background: rgba(255,59,48,.1);  color: var(--tint-red); }
-.badge.spot   { background: rgba(0,122,255,.1);  color: var(--tint-blue); }
-.badge.drink  { background: rgba(175,82,222,.1); color: var(--tint-purple); }
+.badge.food { background: rgba(255,59,48,.1); color: var(--tint-red); }
+.badge.spot { background: rgba(0,122,255,.1); color: var(--tint-blue); }
+.badge.drink { background: rgba(175,82,222,.1); color: var(--tint-purple); }
 
 .budget { display: inline-block; margin-top: 6px; padding: 3px 10px; background: var(--bg-grouped); border-radius: var(--radius-sm); font-size: 12px; color: var(--text-secondary); font-weight: 500; }
 
 .pays { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
 .pay { font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: 600; }
-.pay.ok  { background: rgba(52,199,89,.1);  color: var(--tint-green); }
-.pay.no  { background: rgba(255,59,48,.08); color: var(--tint-red); }
-.pay.idk { background: rgba(255,149,0,.1);  color: var(--tint-orange); }
+.pay.ok { background: rgba(52,199,89,.1); color: var(--tint-green); }
+.pay.no { background: rgba(255,59,48,.08); color: var(--tint-red); }
+.pay.idk { background: rgba(255,149,0,.1); color: var(--tint-orange); }
 
 .links { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 8px 14px; border-radius: var(--radius-sm);
-  font-size: 13px; font-weight: 600; border: none; cursor: pointer;
-  text-decoration: none !important; transition: filter .2s;
-}
+.btn { display: inline-flex; align-items: center; gap: 4px; padding: 8px 14px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; border: none; cursor: pointer; text-decoration: none !important; transition: filter .2s; }
 .btn:active { filter: brightness(.9); }
-.btn.nav    { background: var(--accent); color: #fff; }
-.btn.xhs    { background: #ff2442; color: #fff; }
-.btn.dp     { background: #ffa700; color: #fff; }
-.btn.rsv    { background: var(--tint-green); color: #fff; }
+.btn.nav { background: var(--accent); color: #fff; }
+.btn.xhs { background: #ff2442; color: #fff; }
+.btn.dp { background: #ffa700; color: #fff; }
+.btn.rsv { background: var(--tint-green); color: #fff; }
 
-.as-overlay {
-  position: fixed; inset: 0; z-index: 9999;
-  background: rgba(0,0,0,.35); backdrop-filter: blur(2px);
-  display: flex; align-items: flex-end; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity .25s;
-}
+.as-overlay { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.35); backdrop-filter: blur(2px); display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s; }
 .as-overlay.show { opacity: 1; pointer-events: auto; }
-.as-sheet {
-  width: 100%; max-width: 420px;
-  padding: 0 8px 34px;
-  transform: translateY(100%); transition: transform .3s cubic-bezier(.22,1,.36,1);
-}
+.as-sheet { width: 100%; max-width: 420px; padding: 0 8px 34px; transform: translateY(100%); transition: transform .3s cubic-bezier(.22,1,.36,1); }
 .as-overlay.show .as-sheet { transform: translateY(0); }
-.as-group {
-  background: rgba(255,255,255,.88); backdrop-filter: blur(20px);
-  border-radius: 14px; overflow: hidden; margin-bottom: 8px;
-}
-.as-group .as-item {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 16px; font-size: 18px; color: #007aff; font-weight: 500;
-  border: none; background: none; width: 100%; cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
+.as-group { background: rgba(255,255,255,.88); backdrop-filter: blur(20px); border-radius: 14px; overflow: hidden; margin-bottom: 8px; }
+.as-group .as-item { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 16px; font-size: 18px; color: #007aff; font-weight: 500; border: none; background: none; width: 100%; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .as-group .as-item + .as-item { border-top: .5px solid rgba(0,0,0,.12); }
 .as-group .as-item:active { background: rgba(0,0,0,.06); }
 .as-cancel { font-weight: 600; }
 
-.details {
-  margin-top: 10px; padding-top: 10px;
-  border-top: .5px solid var(--separator);
-  font-size: 13px; color: var(--text-secondary); line-height: 1.6;
-}
+.details { margin-top: 10px; padding-top: 10px; border-top: .5px solid var(--separator); font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 .details.closed { display: none; }
 
 .day-list .card { margin-bottom: 8px; }
@@ -188,20 +155,11 @@ a:hover { text-decoration: underline; }
 .pay-summary .warn { color: var(--tint-red); }
 .pay-summary .ok-text { color: var(--tint-green); }
 
-.tip-card {
-  background: var(--bg-elevated); border-radius: var(--radius-md);
-  padding: 14px 16px; box-shadow: var(--shadow-sm); margin-bottom: 10px;
-  border-left: 3px solid var(--tint-orange);
-}
+.tip-card { background: var(--bg-elevated); border-radius: var(--radius-md); padding: 14px 16px; box-shadow: var(--shadow-sm); margin-bottom: 10px; border-left: 3px solid var(--tint-orange); }
 .tip-card .tip-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
 .tip-card .tip-body { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
-.warn-card {
-  background: rgba(255,59,48,.05); border-radius: var(--radius-md);
-  padding: 14px 16px; margin-bottom: 10px;
-  border-left: 3px solid var(--tint-red);
-  font-size: 13px; line-height: 1.6;
-}
+.warn-card { background: rgba(255,59,48,.05); border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 10px; border-left: 3px solid var(--tint-red); font-size: 13px; line-height: 1.6; }
 .warn-card .warn-title { font-weight: 700; color: var(--tint-red); margin-bottom: 4px; }
 
 .legend { display: flex; gap: 14px; flex-wrap: wrap; padding: 8px 0; font-size: 12px; color: var(--text-secondary); }
@@ -224,248 +182,195 @@ a:hover { text-decoration: underline; }
 <div class="content" id="content"></div>
 
 <script>
-// ╔══════════════════════════════════════════════════════════════╗
-// ║  DAYS DATA — 曼谷→清迈→普吉岛 10天9晚 (实战攻略增强版)    ║
-// ╚══════════════════════════════════════════════════════════════╝
 
-const HOTEL = { name: 'Ibis Bangkok Siam', lat: 13.7465, lng: 100.5290 };
+const HOTEL = { name: '曼谷 · 素坤逸区酒店', lat: 13.7367, lng: 100.5606 };
 
 const DAYS = [
   { id: 0, label: '总览', color: '#0071e3', locations: [] },
 
-  // ═══ DAY 1: 福州 → 曼谷 ═══
+  // ═══ D1: 9/22 福州→曼谷 ═══
   { id: 1, label: 'D1 曼谷', date: '9月22日 周二', title: '🛫 福州 → 曼谷', color: '#ff9500', locations: [
     { name: '福州长乐机场 (FOC)', lat: 25.9350, lng: 119.6630, type: 'transport', time: '17:45',
-      desc: '春秋航空 9C7301，直飞曼谷素万那普，约3小时50分',
-      budget: '¥500–800/人', detail: '每周二、四、六执飞。提前1–2个月在春秋航空官网或携程订票。⚠️ 春秋座位直角靠背，建议自备颈枕。行李额需另外购买。如昆明中转可更早到（下午两三点就能逛）。', pay: { alipay: 1, wechat: 1, cash: 0.5 },
-      gmap: 'Fuzhou+Changle+International+Airport' },
+      desc: '春秋航空 9C7301，直飞曼谷素万那普，约3小时50分', budget: '¥500–800/人',
+      detail: '每周二、四、六执飞。提前1–2个月订票最划算。⚠️ 春秋座位直角靠背，自备颈枕。行李额需另外购买。昆明中转可更早到（下午两三点就能逛）。', pay: { alipay: 1, wechat: 1, cash: 0.5 }, gmap: 'Fuzhou+Changle+International+Airport' },
     { name: '曼谷素万那普机场 (BKK)', lat: 13.6900, lng: 100.7501, type: 'transport', time: '20:55',
-      desc: '抵达曼谷。Grab打车去酒店约40分钟', budget: '打车约300–400THB',
-      detail: '💡 入境实战Tips：\n• 每人至少带1万泰铢现金（海关可能抽查，实测没查但别赌）\n• 提前填线上入境卡（提前1-3天）\n• 准备好英文机票行程单+酒店预订单（海关可能查回程机票，队友被问了）\n• Grab打车到Asok区约40分钟，车都香香的很干净\n• 出租车在1楼出口，让司机打表（by meter）', pay: { cash: 1, card: 0.5 } },
-    { name: 'Ibis Bangkok Siam', lat: 13.7465, lng: 100.5290, type: 'hotel', time: '22:00',
-      desc: '入住 Siam 区域，BTS National Stadium 站旁，步行到MBK和Siam商圈',
-      budget: '¥350/晚', detail: '国际连锁品质稳定。💡 Agoda比携程/去哪儿都便宜。押金用人民币现金（约¥400-700），退房拿走，别押泰铢影响日常花销。', pay: { card: 1, alipay: 0.5, cash: 1 }, gmap: 'Ibis+Bangkok+Siam' },
+      desc: '抵达曼谷。Grab打车去素坤逸区酒店约40分钟', budget: '打车约300–400THB',
+      detail: '💡 入境实战Tips：\n• 每人至少带1万泰铢现金（海关抽查，实测没查但别赌）\n• 提前填线上入境卡（提前1-3天）\n• 准备好英文机票行程单+酒店预订单（海关可能查回程机票）\n• Grab车都香香的，司机心态超好', pay: { cash: 1, card: 0.5 } },
+    { name: '素坤逸区酒店', lat: 13.7367, lng: 100.5606, type: 'hotel', time: '22:00',
+      desc: '入住素坤逸区，住4晚。推荐小巷子里安静的酒店，有突突车送到BTS站', budget: '¥350–500/晚',
+      detail: '💡 素坤逸区（Sukhumvit）是曼谷最方便的住宿区之一。推荐住BTS站附近。Agoda比携程/去哪儿都便宜。押金用人民币现金（¥400-700），退房拿走。绝大部分酒店禁榴莲！', pay: { card: 1, alipay: 0.5, cash: 1 }, gmap: 'Sukhumvit+hotel+Bangkok' },
     { name: 'Jodd Fairs 夜市', lat: 13.7550, lng: 100.5684, type: 'food', time: '23:00',
-      desc: '🔰 曼谷第一站！火山排骨、芒果糯米饭、泰式奶茶，营业到凌晨',
-      budget: '¥40–80/人', detail: '曼谷最火的新夜市，原拉差达火车夜市搬迁而来。必吃：火山排骨（辣度可选）、烤大虾、芒果糯米饭。第一晚别跑远，轻装上阵。大多数摊位只收现金。', pay: { cash: 1, alipay: 0.5 }, gmap: 'Jodd+Fairs+Night+Market+Bangkok' }
+      desc: '🔰 曼谷第一站！火山排骨、芒果糯米饭、泰式奶茶，营业到凌晨', budget: '¥40–80/人',
+      detail: '曼谷最火的新夜市。必吃：火山排骨（辣度可选）、烤大虾、芒果糯米饭。第一晚别跑远，轻装上阵。大多数摊位只收现金。', pay: { cash: 1, alipay: 0.5 }, gmap: 'Jodd+Fairs+Night+Market+Bangkok' }
   ]},
 
-  // ═══ DAY 2: 曼谷全天 (大增强版 — 融入蓝旗号、水门寺、奶茶、百丽宫细化) ═══
-  { id: 2, label: 'D2 曼谷', date: '9月23日 周三', title: '🏙️ 曼谷 · 游船+商圈+水门寺+SPA', color: '#ff9500', locations: [
-    { name: '湄南河游船 (Chao Phraya Express)', lat: 13.7200, lng: 100.5140, type: 'spot', time: '10:00',
-      desc: '从Sathorn码头坐公交船北上，沿河看郑王庙+大皇宫+河滨风光',
-      budget: '15–40THB/人', detail: 'BTS坐到Saphan Taksin站，下楼就是Sathorn码头。坐橙色旗公交船（Orange Flag，15THB），沿湄南河北上，一路看郑王庙、大皇宫、卧佛寺。比打车快、比地铁有趣，曼谷最地道的水上交通。', pay: { cash: 1 }, gmap: 'Sathorn+Pier+Chao+Phraya+Express+Boat' },
-    { name: '郑王庙 (Wat Arun) 河对岸机位', lat: 13.7437, lng: 100.4888, type: 'spot', time: '10:45',
-      desc: '渡河船4泰铢到河对岸，不进庙，外景+河景ins最佳机位',
-      budget: '4THB渡船费', detail: '从Tha Tien码头坐渡河船到对岸。船上就是最佳拍照角度。对岸有咖啡馆坐着慢慢拍。⚠️ 白天看很一般，夜游湄南河时路过看才好看。', gmap: 'Wat+Arun+Bangkok' },
-    { name: '水门寺大佛 · 拍照机位', lat: 13.7225, lng: 100.4940, type: 'spot', time: '11:30',
-      desc: '📸 隐藏机位！避开那个水上市场，这个定位点拍大佛全景，ins爆火',
-      budget: '免费', detail: '💡 那个水上市场是雷区（水脏商业化），但这个定位可以看到水门寺大佛，拍照非常出片。水门寺大佛是曼谷新地标。', gmap: 'Wat+Paknam+Bangkok' },
-    { name: 'Ratchaprasong 空中天桥', lat: 13.7450, lng: 100.5410, type: 'spot', time: '12:00',
-      desc: '连接BTS Siam和Chit Lom的空中走廊，俯瞰曼谷最繁华十字路口，免费',
-      budget: '免费', gmap: 'Ratchaprasong+Skywalk+Bangkok' },
-    { name: '四面佛 Erawan Shrine', lat: 13.7445, lng: 100.5408, type: 'spot', time: '12:15',
-      desc: '曼谷最灵验佛龛，天桥正下方，免费参拜。⚠️ 不能随便许愿得还愿',
-      budget: '免费（香烛自愿）', detail: '💡 不求愿可以看看感受城市信仰。审美疲劳后可跳过。四面分别代表平安、事业、姻缘、财运。许愿灵验需请舞者跳舞还愿（2人260THB起）。', gmap: 'Erawan+Shrine+Bangkok' },
-    { name: 'Som Tam Nua 青木瓜沙拉', lat: 13.7450, lng: 100.5390, type: 'food', time: '12:45',
-      desc: 'Siam商圈附近，曼谷最出名青木瓜沙拉专门店，炸鸡+糯米饭绝配',
-      budget: '¥40–60/人', detail: '本地人和游客都排队的名店。招牌青木瓜沙拉+炸鸡翅+糯米粉。不吃生食的话点炸鸡和烤猪肉完全OK。', pay: { cash: 1, card: 0.5 }, gmap: 'Som+Tam+Nua+Siam+Bangkok' },
-    { name: '🧋 手标奶茶 ChaTraMue', lat: 13.7464, lng: 100.5347, type: 'drink', time: '13:15',
-      desc: '🔥 奶茶三巨头之一！红泰奶 + light sweet（三分糖），国民奶茶遍地都是',
-      budget: '¥8–12', detail: '点单技巧：说"light sweet"不然甜到怀疑人生。店里有茶叶可买当伴手礼。', pay: { cash: 1, alipay: 1 }, gmap: 'ChaTraMue+Siam+Paragon' },
-    { name: 'Siam 商圈 · 暹罗百丽宫', lat: 13.7464, lng: 100.5347, type: 'spot', time: '13:30',
-      desc: 'Siam Paragon → CentralWorld，曼谷最大购物区。百丽宫比澳门豪华100倍！',
-      budget: '看心情', detail: '💡 百丽宫实战Tips：\n• 比澳门那个豪华100倍，品牌超全\n• 地下超市有榴莲专区，品种超多\n• 买完在超市熟食区吃完，酒店和商场都禁榴莲！\n• CentralWorld有泰国本土设计师品牌\n• BTS直达，空调给力不怕热', pay: { card: 1, alipay: 1, wechat: 1, cash: 0.5 }, gmap: 'Siam+Paragon+Bangkok' },
-    { name: '🧋 PangCha 奶茶', lat: 13.7464, lng: 100.5347, type: 'drink', time: '—',
-      desc: '🔥 奶茶三巨头之三！百丽宫和暹罗天地都有，奶茶界天花板',
-      budget: '¥15–25', pay: { alipay: 1, cash: 1 }, gmap: 'PangCha+Siam+Paragon' },
-    { name: '暹罗天地 Iconsiam', lat: 13.7268, lng: 100.5103, type: 'spot', time: '—',
-      desc: '备选：富人天堂，门口停满豪车。从Siam打车或BTS+接驳船可达',
-      budget: '看心情', pay: { alipay: 1, wechat: 1, cash: 1 }, gmap: 'Iconsiam+Bangkok' },
-    { name: '蓝旗号出发码头 · 夜游湄南河', lat: 13.7190, lng: 100.5135, type: 'transport', time: '—',
-      desc: '🌃 备选夜游！17:50前到码头，买18:20/30/40班次，必须蓝旗号！',
-      budget: '约฿200-400/人', detail: '💡 湄南河夜游攻略：\n• 定位出发码头（Sathorn Pier），非中途码头\n• ⚠️ 17:50前到！蓝旗号！二楼右边坐！\n• 中途像公交一样有人上来，晚了没位\n• 夜景绝美，比白天好看10倍\n• 如果不做夜游，Terminal21美食街是更轻松的晚餐选择', pay: { cash: 1 }, gmap: 'Sathorn+Pier+Bangkok+night+cruise' },
+  // ═══ D2: 9/23 曼谷 · 湄南河+大皇宫+商圈 ═══
+  { id: 2, label: 'D2 曼谷', date: '9月23日 周三', title: '🏙️ 曼谷 · 湄南河游船+大皇宫+商圈', color: '#ff9500', locations: [
+    { name: '湄南河游船 (Chao Phraya Express)', lat: 13.7200, lng: 100.5140, type: 'spot', time: '09:30',
+      desc: '从Sathorn码头坐橙色旗公交船北上，沿河看郑王庙+大皇宫+河滨风光', budget: '15–40THB/人',
+      detail: 'BTS坐到Saphan Taksin站，下楼就是Sathorn码头。坐橙色旗公交船（15THB），沿湄南河北上。比打车快、比地铁有趣，曼谷最地道的水上交通。', pay: { cash: 1 }, gmap: 'Sathorn+Pier+Chao+Phraya+Express+Boat' },
+    { name: '郑王庙 (Wat Arun) 河对岸机位', lat: 13.7437, lng: 100.4888, type: 'spot', time: '10:15',
+      desc: '渡河船4泰铢到对岸，不进庙。船上就是最佳拍照角度', budget: '4THB渡船费',
+      detail: '对岸有咖啡馆坐着慢慢拍，穿浅色衣服更出片。⚠️ 白天看很一般，夜游时路过看才好看。', gmap: 'Wat+Arun+Bangkok' },
+    { name: '大皇宫 Grand Palace', lat: 13.7500, lng: 100.4914, type: 'spot', time: '11:00',
+      desc: '门票฿500含大皇宫+玉面佛+孔剧。⚠️ 不能吊带/短裤，至少八九分裤', budget: '฿500/人',
+      detail: '💡 玉面佛里面不让拍照，建筑外可以拍。孔剧要坐车去可以不看。袜子拉长凑八九分裤也行。去完会觉得其他寺庙一般。如果不想进寺庙，门口拍照打卡即可。', pay: { cash: 1 }, gmap: 'Grand+Palace+Bangkok' },
+    { name: '水门寺大佛 · 拍照机位', lat: 13.7225, lng: 100.4940, type: 'spot', time: '14:00',
+      desc: '📸 ins爆火隐藏机位！避开那个水上市场（雷区），这个定位点拍大佛全景', budget: '免费',
+      detail: '水门寺大佛是曼谷新地标。那个水上市场水脏商业化，但这个定位点完美避开。', gmap: 'Wat+Paknam+Bangkok' },
+    { name: '🧋 手标奶茶 ChaTraMue', lat: 13.7464, lng: 100.5347, type: 'drink', time: '15:30',
+      desc: '🔥 奶茶三巨头之一！红泰奶 + light sweet（三分糖），国民奶茶遍地都是', budget: '¥8–12',
+      detail: '点单说"light sweet"不然甜到怀疑人生。店里有茶叶可当伴手礼。', pay: { cash: 1, alipay: 1 }, gmap: 'ChaTraMue+Bangkok' },
+    { name: 'Siam 商圈 · 暹罗百丽宫', lat: 13.7464, lng: 100.5347, type: 'spot', time: '16:00',
+      desc: '比澳门豪华100倍！地下超市有榴莲专区，BTS直达',
+      detail: '💡 百丽宫实战：品牌超全，地下超市榴莲品种超多，买完在熟食区吃完（酒店商场禁榴莲）。CentralWorld有本土设计师品牌。', pay: { card: 1, alipay: 1, wechat: 1, cash: 0.5 }, gmap: 'Siam+Paragon+Bangkok' },
     { name: 'Terminal 21 美食街', lat: 13.7375, lng: 100.5600, type: 'food', time: '19:00',
-      desc: 'Asok站旁商场，Pier 21美食广场泰餐便宜又地道，回酒店步行就到',
-      budget: '¥30–50/人', detail: 'Terminal 21五楼的Pier 21是曼谷性价比最高的美食广场。猪脚饭、泰式炒粉、芒果糯米饭一应俱全，每份30–50THB。吃完饭下楼BTS一站回酒店。', pay: { cash: 1 }, gmap: 'Terminal+21+Asok+Bangkok' },
-    { name: '朱拉隆功夜市 · 松松海鲜', lat: 13.7370, lng: 100.5300, type: 'food', time: '—',
-      desc: '备选晚餐：🔥 队友第一晚吃非常惊艳！新鲜便宜的海鲜',
-      budget: '¥50–100/人', detail: '晚上很热闹，可跟牛奶小子一起打卡。如果不去Terminal21，这里是绝佳替代。', pay: { cash: 1, alipay: 1 }, gmap: 'Songsong+Seafood+Bangkok' },
-    { name: '大皇宫 Grand Palace', lat: 13.7500, lng: 100.4914, type: 'spot', time: '—',
-      desc: '备选：门票฿500含大皇宫+玉面佛+孔剧。⚠️ 不能吊带/短裤，至少八九分裤',
-      budget: '฿500/人', detail: '如果想去（虽然不进寺庙是默认偏好）：玉面佛里面不让拍照，建筑外可以拍。孔剧要坐车去可以不看。袜子拉长凑八九分裤也行。去完大皇宫会觉得其他寺庙一般。', pay: { cash: 1 }, gmap: 'Grand+Palace+Bangkok' },
-    { name: 'Big C 超市 Ratchadamri', lat: 13.7462, lng: 100.5394, type: 'spot', time: '—',
-      desc: '备选购物：青草药膏、鼻通、膏药贴都来这里买！比免税店便宜',
-      budget: '看心情', pay: { alipay: 1, wechat: 1, cash: 1 }, gmap: 'Big+C+Ratchadamri+Bangkok' },
+      desc: 'Asok站旁商场，Pier 21美食广场泰餐便宜又地道，回酒店步行就到', budget: '¥30–50/人',
+      detail: '五楼Pier 21是曼谷性价比最高的美食广场。猪脚饭、泰式炒粉、芒果糯米饭每份30–50THB。吃完饭BTS一站回酒店。', pay: { cash: 1 }, gmap: 'Terminal+21+Asok+Bangkok' },
     { name: 'Health Land Asok SPA', lat: 13.7370, lng: 100.5605, type: 'spot', time: '21:00',
-      desc: '🧖 SPA ① 传统泰式按摩 2小时，650THB，性价比之王',
-      budget: '¥130/人', detail: '曼谷老牌连锁SPA，技师手法稳定。推荐传统泰式按摩2小时（650THB）。提前1天电话预约：+66 2-261-2260。', pay: { cash: 1, card: 1 },
+      desc: '🧖 SPA 传统泰式按摩 2小时，650THB，性价比之王', budget: '¥130/人',
+      detail: '曼谷老牌连锁SPA，技师手法稳定。推荐传统泰式按摩2小时（650THB）。提前1天电话预约：+66 2-261-2260。', pay: { cash: 1, card: 1 },
       xhsKeyword: '曼谷 Health Land SPA 体验', reserve: 'https://www.healthlandspa.com/', gmap: 'Health+Land+Asok+Bangkok' }
   ]},
 
-  // ═══ DAY 3: 曼谷 → 清迈 ═══
-  { id: 3, label: 'D3 清迈', date: '9月24日 周四', title: '🛫 曼谷 → 清迈 · 古城初探', color: '#34c759', locations: [
-    { name: '廊曼机场 (DMK)', lat: 13.9125, lng: 100.6070, type: 'transport', time: '07:30',
-      desc: '曼谷老机场，廉航大本营。Grab打车约30分钟。⚠️ 别跑错去素万那普！',
-      budget: '打车约200–300THB', detail: '泰国亚航、狮航、Nok Air都在这里。💡 如果在素万那普中转，安检后有王权免税店（满1000减500泰铢常有）+超大711。', gmap: 'Don+Mueang+Airport+Bangkok' },
-    { name: '清迈国际机场 (CNX)', lat: 18.7669, lng: 98.9625, type: 'transport', time: '10:15',
-      desc: '曼谷→清迈，泰亚航/狮航，1小时10分，每天多班',
-      budget: '¥110–180/人', gmap: 'Chiang+Mai+International+Airport' },
-    { name: 'BED Chiangmai Gate Hotel', lat: 18.7820, lng: 98.9860, type: 'hotel', time: '11:00',
-      desc: '入住古城南门附近，设计感精品酒店，泳池+免费早餐',
-      budget: '¥350/晚', detail: '清迈口碑精品酒店，黑白极简风格。含丰盛自助早餐。古城南门位置，步行到周六夜市和周日夜市都很近。💡 Agoda比价预订，押金用人民币。', pay: { card: 1, alipay: 0.5, cash: 1 }, gmap: 'BED+Chiangmai+Gate+Hotel' },
-    { name: 'Khao Soi Khun Yai 咖喱面', lat: 18.7930, lng: 98.9880, type: 'food', time: '12:00',
-      desc: '清迈最正宗泰北咖喱面（Khao Soi），古城北边老店，只开中午卖完就收',
-      budget: '¥10–15/人', pay: { cash: 1 }, gmap: 'Khao+Soi+Khun+Yai+Chiang+Mai' },
-    { name: '契迪龙寺 & 帕辛寺 门口', lat: 18.7870, lng: 98.9865, type: 'spot', time: '14:00',
-      desc: '古城散步路过，门口拍照，古树+古塔废墟感，不进庙不收费',
-      budget: '免费', gmap: 'Wat+Chedi+Luang+Chiang+Mai' },
-    { name: '塔佩门广场', lat: 18.7880, lng: 98.9920, type: 'spot', time: '17:00',
-      desc: '红砖古城墙+鸽子=清迈标准打卡照，傍晚光线最好',
-      budget: '免费', gmap: 'Tha+Phae+Gate+Chiang+Mai' },
-    { name: '长康路夜市 Night Bazaar', lat: 18.7852, lng: 98.9997, type: 'food', time: '19:00',
-      desc: '清迈每晚都有的夜市，手工艺品+小吃，逛吃首选',
-      budget: '¥30–60/人', detail: '小吃集中在Anusarn Market区域，泰北香肠、烤鸡、水果沙冰。手工艺品记得砍价，6–7折起步。', pay: { cash: 1, alipay: 0.5 }, gmap: 'Chiang+Mai+Night+Bazaar' }
+  // ═══ D3: 9/24 曼谷 · 蓝旗号夜游+Iconsiam ═══
+  { id: 3, label: 'D3 曼谷', date: '9月24日 周四', title: '🌃 曼谷 · Iconsiam+蓝旗号夜游湄南河', color: '#007aff', locations: [
+    { name: '暹罗天地 Iconsiam', lat: 13.7268, lng: 100.5103, type: 'spot', time: '11:00',
+      desc: '🔥 富人天堂！门口停满豪车，湄南河畔超豪华商场，BTS+接驳船可达', budget: '看心情',
+      detail: '曼谷最新地标商场，室内水上市场、品牌旗舰店、河景餐厅。PangCha奶茶有分店。可以逛到下午再出来。', pay: { alipay: 1, wechat: 1, cash: 1 }, gmap: 'Iconsiam+Bangkok' },
+    { name: '🧋 PangCha 奶茶', lat: 13.7268, lng: 100.5103, type: 'drink', time: '12:00',
+      desc: '🔥 奶茶三巨头之三！Iconsiam和百丽宫都有，奶茶界天花板', budget: '¥15–25', pay: { alipay: 1, cash: 1 }, gmap: 'PangCha+Iconsiam' },
+    { name: 'Ratchaprasong 空中天桥+四面佛', lat: 13.7450, lng: 100.5410, type: 'spot', time: '14:30',
+      desc: '连接BTS Siam和Chit Lom的空中走廊，俯瞰曼谷最繁华十字路口。四面佛在天桥下方', budget: '免费',
+      detail: '四面佛：曼谷最灵验佛龛，免费参拜。⚠️ 不能随便许愿得还愿。不求愿看看感受城市信仰即可。审美疲劳可跳过。', gmap: 'Erawan+Shrine+Bangkok' },
+    { name: 'Big C 超市 Ratchadamri', lat: 13.7462, lng: 100.5394, type: 'spot', time: '16:00',
+      desc: '青草药膏、鼻通、膏药贴都来这里买！比免税店便宜', budget: '看心情',
+      detail: '对面就是Central World。泰国最大连锁超市，伴手礼一站式搞定。', pay: { alipay: 1, wechat: 1, cash: 1 }, gmap: 'Big+C+Ratchadamri+Bangkok' },
+    { name: '蓝旗号出发码头 · 夜游湄南河', lat: 13.7190, lng: 100.5135, type: 'transport', time: '17:30',
+      desc: '🌃 17:50前到Sathorn码头！买18:20/30/40班次，必须蓝旗号！', budget: '约฿200-400/人',
+      detail: '💡 夜游攻略：定位出发码头非中途码头。⚠️ 17:50前到！蓝旗号！冲二楼右边坐！中途像公交一样有人上来，晚了没位。夜景绝美比白天好看10倍。', pay: { cash: 1 }, gmap: 'Sathorn+Pier+Bangkok+night+cruise' },
+    { name: '夜游湄南河', lat: 13.7230, lng: 100.5120, type: 'spot', time: '18:30',
+      desc: '蓝旗号二楼右边甲板，拍郑王庙+大皇宫夜景+两岸灯光，体验拉满', gmap: 'Chao+Phraya+night+cruise+Bangkok' },
+    { name: '朱拉隆功夜市 · 松松海鲜', lat: 13.7370, lng: 100.5300, type: 'food', time: '20:30',
+      desc: '🔥 队友第一晚吃非常惊艳！新鲜便宜的海鲜，晚上很热闹', budget: '¥50–100/人',
+      detail: '可跟牛奶小子一起打卡。如果不想吃海鲜，Terminal21 Pier 21也是好选择。', pay: { cash: 1, alipay: 1 }, gmap: 'Songsong+Seafood+Bangkok' }
   ]},
 
-  // ═══ DAY 4: 清迈 · 奶奶厨房 ═══
-  { id: 4, label: 'D4 清迈', date: '9月25日 周五', title: '🍳 清迈 · 奶奶厨房烹饪日', color: '#34c759', locations: [
-    { name: "Grandma's Home Cooking School", lat: 18.7220, lng: 99.0300, type: 'food', time: '08:30',
-      desc: '🍳 逛菜市场→有机农场→学做冬阴功+绿咖喱+Pad Thai+芒果糯米饭',
-      budget: '¥178–238/人', detail: '上午场8:30–14:00，含酒店接送+逛传统市场+参观有机农场（摘菜、捡鸡蛋）+学做3道菜+甜品+饮品。中文老师可选，全程免费跟拍，零基础友好。做完自己当午饭吃。提前3–7天在飞猪/携程/Klook预订。', pay: { alipay: 1, card: 1 },
-      reserve: 'https://www.klook.com/zh-CN/activity/99985-grandma-home-cooking-school-chiang-mai/', gmap: 'Grandma+Home+Cooking+School+Chiang+Mai' },
-    { name: '宁曼路 (Nimmanhaemin)', lat: 18.7980, lng: 98.9675, type: 'spot', time: '15:30',
-      desc: '清迈文创街区，咖啡馆、设计师小店、One Nimman商场',
-      budget: '看心情', detail: '推荐咖啡馆：Graph Café（特调咖啡）、Ristr8to（拿铁拉花冠军）。One Nimman是红砖建筑风格文创商场。', pay: { cash: 0.5, card: 1, alipay: 1 }, gmap: 'Nimmanhaemin+Road+Chiang+Mai' },
-    { name: '清迈门夜市', lat: 18.7830, lng: 98.9880, type: 'food', time: '18:30',
-      desc: '比Night Bazaar更local，泰北香肠、烤鸡、水果、糯米饭',
-      budget: '¥20–40/人', detail: '清迈门（Chiang Mai Gate）南边夜市，本地人为主。价格比Night Bazaar便宜30%。', pay: { cash: 1 }, gmap: 'Chiang+Mai+Gate+Night+Market' }
+  // ═══ D4: 9/25 曼谷 · 自由探索 ═══
+  { id: 4, label: 'D4 曼谷', date: '9月25日 周五', title: '🛍️ 曼谷 · 自由探索+补漏日', color: '#34c759', locations: [
+    { name: '素坤逸区 · 酒店周边探索', lat: 13.7367, lng: 100.5606, type: 'spot', time: '09:00',
+      desc: '上午在素坤逸区自由逛：711扫货、咖啡馆、街边小吃、泰式按摩', budget: '看心情',
+      detail: '💡 素坤逸区很安全，洗完澡11-12点还在外面逛711没问题。酒店附近走几步就有干净舒服的按摩店。没时间去名店，路边200THB/小时的足部按摩也很爽。', gmap: 'Sukhumvit+Bangkok' },
+    { name: 'Som Tam Nua 青木瓜沙拉', lat: 13.7450, lng: 100.5390, type: 'food', time: '12:00',
+      desc: 'Siam商圈附近最出名青木瓜沙拉专门店，炸鸡+糯米饭绝配', budget: '¥40–60/人',
+      detail: '本地人和游客都排队的名店。不吃生食点炸鸡和烤猪肉完全OK。', pay: { cash: 1, card: 0.5 }, gmap: 'Som+Tam+Nua+Siam+Bangkok' },
+    { name: 'CentralWorld / Siam Discovery', lat: 13.7464, lng: 100.5390, type: 'spot', time: '14:00',
+      desc: '补漏购物：CentralWorld本土设计师品牌，Siam Discovery创意设计', budget: '看心情',
+      detail: '昨天没逛够的今天继续。泰国本土设计师品牌、香薰、包包都在这里。四面佛就在斜对面。', pay: { card: 1, alipay: 1, wechat: 1, cash: 0.5 }, gmap: 'CentralWorld+Bangkok' },
+    { name: '唐人街 Yaowarat', lat: 13.7410, lng: 100.5084, type: 'food', time: '18:00',
+      desc: '备选：曼谷最有烟火气的美食街，烤鱿鱼、猪脚饭、泰式炒粉', budget: '¥50–80/人',
+      detail: '如果前两天没去，今晚可以去。全熟食没有生食问题。推荐：Yaowarat Toast Bread（烤面包）、猪脚饭。', pay: { cash: 1 }, gmap: 'Yaowarat+Road+Bangkok+Chinatown' },
+    { name: '泰国文化中心/艺术中心', lat: 13.7465, lng: 100.5305, type: 'spot', time: '—',
+      desc: '备选：BACC曼谷艺术文化中心，免费，MBK对面。冷气+当代艺术+咖啡馆', budget: '免费',
+      detail: '就在Siam商圈旁边。如果外面太热或下雨，这里是完美的室内备选。', gmap: 'Bangkok+Art+and+Culture+Centre' },
+    { name: '备选按摩 / 补漏购物', lat: 13.7367, lng: 100.5606, type: 'spot', time: '—',
+      desc: '最后在曼谷的夜晚，想按就按，想买就买。明天飞普吉', budget: '看心情',
+      detail: '💡 曼谷最后一天别太累。明天上午退房飞普吉，今晚早点休息。收拾行李，准备进入海岛模式。' }
   ]},
 
-  // ═══ DAY 5: 清迈 · Jing Jai Market + SPA ═══
-  { id: 5, label: 'D5 清迈', date: '9月26日 周六', title: '🌿 清迈 · Jing Jai Market + SPA', color: '#34c759', locations: [
-    { name: 'Jing Jai Market (JJ Market)', lat: 18.8084, lng: 98.9880, type: 'spot', time: '07:00',
-      desc: '🌿 周末限定！手冲咖啡+手工面包+有机蔬果+本地设计师+Good Goods编织篮',
-      budget: '¥50–150/人', detail: '清迈最精致的周末市集，周六日6:00–14:00。Good Goods编织篮比曼谷便宜款式全，趁早去抢。带现金、穿舒适的鞋、7点去人少不热。', pay: { cash: 1, alipay: 0.5 }, gmap: 'Jing+Jai+Market+Chiang+Mai' },
-    { name: 'Lila Thai Massage (Prapokklao总店)', lat: 18.7880, lng: 98.9860, type: 'spot', time: '15:00',
-      desc: '🧖 SPA ② 女子监狱按摩，传统泰式2小时 ¥100–130',
-      budget: '¥100–130/人', detail: '前女子监狱典狱长创办。古城内7家分店，Prapokklao总店环境最好。选传统泰式2小时（500–650THB）。提前1天电话预约：+66 53 327 043。跟Health Land感觉完全不同。', pay: { cash: 1, alipay: 0.5 },
-      reserve: 'https://www.klook.com/zh-CN/activity/9019-lila-thai-massage-chiang-mai/', gmap: 'Lila+Thai+Massage+Prapokklao+Chiang+Mai' },
-    { name: 'Huen Phen 泰北菜', lat: 18.7850, lng: 98.9870, type: 'food', time: '18:00',
-      desc: '古城内老牌泰北菜馆，泰北咖喱、炸猪皮、蚂蚁蛋汤',
-      budget: '¥30–60/人', detail: '门口不起眼但里面别有洞天。推荐：Gaeng Hang Lay（泰北咖喱猪肉）、Nam Prik Ong（番茄肉酱蘸蔬菜）。不吃生食完全没问题。', pay: { cash: 1, card: 0.5 }, gmap: 'Huen+Phen+Chiang+Mai' }
+  // ═══ D5: 9/26 曼谷→普吉 ═══
+  { id: 5, label: 'D5 普吉', date: '9月26日 周六', title: '🛫 曼谷 → 普吉岛 · 芭东海滩', color: '#ff2d55', locations: [
+    { name: '曼谷素万那普机场 (BKK)', lat: 13.6900, lng: 100.7501, type: 'transport', time: '10:00',
+      desc: '退房，Grab去素万那普机场。曼谷→普吉约1.5小时', budget: '¥200–400机票+¥200打车',
+      detail: '💡 机场有王权免税店（安检后，满1000减500）和超大711。可以在这里先买点小件。', pay: { alipay: 1, cash: 1 }, gmap: 'Suvarnabhumi+Airport+Bangkok' },
+    { name: '普吉国际机场 (HKT)', lat: 8.1132, lng: 98.3169, type: 'transport', time: '13:00',
+      desc: '抵达普吉，Grab去芭东约45分钟。⚠️ 普吉水质差，用自带淋浴喷头+滤芯', budget: '打车约600–800THB',
+      detail: '💡 普吉比曼谷潮湿，衣服不容易干。雨季阵雨频繁但间歇放晴。', pay: { cash: 1 }, gmap: 'Phuket+International+Airport' },
+    { name: '芭东 · 推荐酒店', lat: 7.8950, lng: 98.2990, type: 'hotel', time: '14:30',
+      desc: '入住芭东海滩附近，住3晚。步行到海滩+江西冷。Agoda比价订', budget: '¥300–500/晚',
+      detail: '💡 实战Tips：\n• 芭东核心位置，干净舒服\n• Agoda比携程/去哪儿都便宜\n• 押金用人民币现金（¥400-700）\n• ⚠️ 绝大部分酒店不能带榴莲！\n• 小红书上搜一下有没有"不干净"的反馈\n• 不要7晚换4个酒店，固定住芭东', pay: { card: 1, cash: 1, alipay: 0.5 }, gmap: 'hotel+patong+beach+phuket' },
+    { name: '芭东海滩', lat: 7.8960, lng: 98.2960, type: 'spot', time: '16:00',
+      desc: '🏖️ 普吉最热闹海滩，3公里长沙滩。⚠️ 红旗不要下水！', budget: '免费',
+      detail: '9月底雨季末期，阵雨频繁但间歇放晴。雨季离岸流危险。', gmap: 'Patong+Beach+Phuket' },
+    { name: '🧋 猫头鹰奶茶', lat: 7.8917, lng: 98.2995, type: 'drink', time: '18:00',
+      desc: '🔥 奶茶三巨头之二！泰奶珍珠巨好喝，Grab外卖点起，趁在芭东多喝', budget: '¥10–15',
+      detail: '💡 包装简陋塑料袋就来了，配送费选最便宜档。换酒店后可能点不到，趁还在芭东多喝几杯！', pay: { alipay: 1, cash: 1 }, gmap: 'Owl+Tea+Patong+Phuket' }
   ]},
 
-  // ═══ DAY 6: 清迈 → 普吉岛 (增强版 — 加入酒店/水质/外卖实战tips) ═══
-  { id: 6, label: 'D6 普吉', date: '9月27日 周日', title: '🛫 清迈 → 普吉岛 · 上岛+周末夜市', color: '#ff2d55', locations: [
-    { name: '清迈国际机场 (CNX)', lat: 18.7669, lng: 98.9625, type: 'transport', time: '09:30',
-      desc: '泰国亚航/越捷，清迈直飞普吉岛，约2小时',
-      budget: '¥200–400/人', gmap: 'Chiang+Mai+International+Airport' },
-    { name: '普吉国际机场 (HKT)', lat: 8.1132, lng: 98.3169, type: 'transport', time: '12:30',
-      desc: '抵达普吉岛，Grab打车去芭东约45分钟',
-      budget: '打车约600–800THB', detail: '💡 实战Tips：\n• 普吉机场到芭东海滩约45公里\n• 推荐Grab或Bolt打车，600-800THB\n• ⚠️ 普吉水质差（尤其雨季），自带淋浴喷头+滤芯！\n• 机场大巴到芭东100THB/人但较慢\n• 普吉整体比曼谷潮湿，衣服不容易干', pay: { cash: 1 }, gmap: 'Phuket+International+Airport' },
-    { name: 'Nipa Resort Patong', lat: 7.8950, lng: 98.2980, type: 'hotel', time: '14:00',
-      desc: '入住芭东海滩区域，泳池度假酒店，步行到海滩+江西冷',
-      budget: '¥350/晚', detail: '💡 酒店实战Tips：\n• 芭东核心位置，步行到海滩5分钟\n• Agoda比携程/去哪儿都便宜，9月淡季价更低\n• 押金用人民币现金（¥400-700，看住几晚）\n• ⚠️ 绝大部分酒店不能带榴莲！\n• 不要7晚换4个酒店！芭东固定住最舒服\n• 小红书上搜一下有没有"不干净"的反馈', pay: { card: 1, cash: 1, alipay: 0.5 }, gmap: 'Nipa+Resort+Patong+Phuket' },
-    { name: '芭东海滩', lat: 7.8960, lng: 98.2960, type: 'spot', time: '15:00',
-      desc: '🏖️ 普吉最热闹的海滩，3公里长沙滩。⚠️ 红旗不要下水！',
-      budget: '免费', detail: '9月底阵雨频繁但间歇放晴，抓紧晴天躺。雨季离岸流危险。', gmap: 'Patong+Beach+Phuket' },
-    { name: '普吉周末夜市 (Old Town)', lat: 7.8860, lng: 98.3880, type: 'food', time: '17:00',
-      desc: '周日限定！老城区步行街夜市，手工品+地道小吃+街头表演',
-      budget: '¥40–80/人', detail: 'Thalang Road封路变步行街。周日16:00-22:00。普吉最有人情味的夜市。', pay: { cash: 1 }, gmap: 'Phuket+Weekend+Market+Old+Town' },
-    { name: '🧋 猫头鹰奶茶', lat: 7.8917, lng: 98.2995, type: 'drink', time: '—',
-      desc: '🔥 泰奶珍珠奶茶巨好喝！队友连点两晚外卖。Grab下单，趁在芭东多喝',
-      budget: '¥10–15', detail: '💡 包装简陋（塑料袋就来了），配送费选最便宜的档。换酒店后可能就点不到了，趁还在芭东多喝几杯！曼谷也有分店。', pay: { alipay: 1, cash: 1 }, gmap: 'Owl+Tea+Patong+Phuket' }
-  ]},
-
-  // ═══ DAY 7: 普吉 · 老城+日落 ═══
-  { id: 7, label: 'D7 普吉', date: '9月28日 周一', title: '🏝️ 普吉 · 老城+日落', color: '#ff2d55', locations: [
+  // ═══ D6: 9/27 普吉 · 老城+日落+周末夜市 ═══
+  { id: 6, label: 'D6 普吉', date: '9月27日 周日', title: '🏝️ 普吉 · 老城+日落+周末夜市', color: '#ff2d55', locations: [
     { name: '普吉老城区 (Old Town)', lat: 7.8850, lng: 98.3900, type: 'spot', time: '10:30',
-      desc: '中葡风格彩色建筑群，Thalang Road+Soi Rommanee，ins拍照圣地',
-      budget: '免费', detail: '联合国教科文组织创意城市。推荐打卡：Soi Rommanee（粉色巷）、Chinpracha House（老宅博物馆）。咖啡馆：Rush Coffee、Campus Coffee。', gmap: 'Phuket+Old+Town+Thalang+Road' },
+      desc: '中葡风格彩色建筑群，Thalang Road+Soi Rommanee，ins拍照圣地', budget: '免费',
+      detail: '联合国教科文组织创意城市。推荐：Soi Rommanee（粉色巷）、咖啡馆Rush Coffee、Campus Coffee。', gmap: 'Phuket+Old+Town+Thalang+Road' },
     { name: 'Raya Restaurant 泰南菜', lat: 7.8845, lng: 98.3890, type: 'food', time: '12:00',
-      desc: '老城内百年老宅餐厅，普吉泰南菜代表，咖喱蟹肉+红烧肉',
-      budget: '¥60–100/人', detail: '开在百年中葡老宅里。招牌：Crab Meat in Coconut Milk（椰奶咖喱蟹肉）、Braised Pork Belly（泰式红烧肉）。不吃生食完全OK。', pay: { card: 1, cash: 1 }, gmap: 'Raya+Restaurant+Phuket+Old+Town' },
+      desc: '老城内百年老宅餐厅，咖喱蟹肉+泰式红烧肉，不吃生食完全OK', budget: '¥60–100/人', pay: { card: 1, cash: 1 }, gmap: 'Raya+Restaurant+Phuket+Old+Town' },
     { name: '大佛 Big Buddha 观景台', lat: 7.8275, lng: 98.3130, type: 'spot', time: '15:00',
-      desc: '山顶地标，45米白色大佛，不进殿只在平台拍照，俯瞰普吉全景',
-      budget: '免费', detail: '注意：穿长裤（过膝），不能穿露肩装。建议打车上下山，约30分钟。', gmap: 'Big+Buddha+Phuket' },
+      desc: '山顶地标，45米白色大佛，不进殿只在平台拍照，俯瞰普吉全景', budget: '免费',
+      detail: '注意：穿长裤（过膝），不能穿露肩装。打车上下山约30分钟。', gmap: 'Big+Buddha+Phuket' },
     { name: '神仙半岛 Promthep Cape', lat: 7.7625, lng: 98.3045, type: 'spot', time: '17:30',
-      desc: '🌅 普吉最美日落点，免费，安达曼海尽收眼底',
-      budget: '免费', detail: '普吉岛最南端地标。建议17:00前到占好位置。旁边有灯塔可以爬上去。回芭东打车约40分钟。', gmap: 'Promthep+Cape+Phuket+Sunset' }
+      desc: '🌅 普吉最美日落点！建议17:00前到占位，安达曼海尽收眼底', budget: '免费',
+      detail: '普吉岛最南端地标。日落时分金黄海面+棕榈树剪影。旁边有灯塔可以爬。回芭东打车约40分钟。', gmap: 'Promthep+Cape+Phuket+Sunset' },
+    { name: '普吉周末夜市 (Old Town)', lat: 7.8860, lng: 98.3880, type: 'food', time: '18:30',
+      desc: '🔥 周日限定！老城Thalang Road封路变步行街。手工品+小吃+街头表演', budget: '¥40–80/人',
+      detail: '普吉最有人情味的夜市，周日16:00-22:00。泰南咖喱、沙爹串、椰子冰淇淋。完美衔接日落回程。', pay: { cash: 1 }, gmap: 'Phuket+Weekend+Market+Old+Town' }
   ]},
 
-  // ═══ DAY 8: 普吉 · 海滩日 (增强版 — 加入跳岛+丛林飞跃选项) ═══
-  { id: 8, label: 'D8 普吉', date: '9月29日 周二', title: '🏝️ 普吉 · 海滩+冒险选项', color: '#ff2d55', locations: [
-    { name: '卡塔海滩 Kata Beach', lat: 7.8200, lng: 98.3000, type: 'spot', time: '09:00',
-      desc: '普吉三大海滩之一，沙细浪小，比芭东安静很多',
-      budget: '免费', detail: '上午人少，躺在沙滩椅上发呆。路边有餐厅和7-11。', gmap: 'Kata+Beach+Phuket' },
-    { name: '🏝️ 跳岛游（皇帝岛/皮皮岛）', lat: 7.7500, lng: 98.3400, type: 'spot', time: '—',
-      desc: '备选全天：飞猪¥1000/人，含接送+四五顿餐+浮潜。⚠️ 选游轮不选快艇！',
-      budget: '¥1000/人', detail: '💡 跳岛实战攻略：\n• ⚠️ 必须选游轮！雨季浪大快艇/游艇非常危险\n• 队友选天境号升级到Vega号，船上吃四五顿\n• 浮潜包含在内，比较浅，小学生都能玩\n• 追海豚水路非常晃，大船才能稳住\n• 也可住岛上但酒店贵（¥1000-2000/晚）且赶\n• 姨妈期别下水浮潜', pay: { alipay: 1 }, gmap: 'Racha+Island+Phuket+tour' },
+  // ═══ D7: 9/28 普吉 · 跳岛/丛林飞跃 ═══
+  { id: 7, label: 'D7 普吉', date: '9月28日 周一', title: '🏝️ 普吉 · 跳岛游 or 丛林飞跃', color: '#af52de', locations: [
+    { name: '🏝️ 跳岛游（皇帝岛/皮皮岛）', lat: 7.7500, lng: 98.3400, type: 'spot', time: '08:00-18:00',
+      desc: '🔥 飞猪¥1000/人，含接送+四五顿餐+浮潜。⚠️ 必须选游轮不选快艇！', budget: '¥1000/人',
+      detail: '💡 跳岛实战：\n• ⚠️ 雨季浪大，快艇/游艇非常危险，必须游轮\n• 队友天境号升级Vega号，船上吃四五顿\n• 浮潜包含，比较浅小学生都能玩\n• 追海豚水路非常晃，大船才能稳住\n• 姨妈期别下水\n• 也可住岛上但贵（¥1000-2000/晚）且赶', pay: { alipay: 1 }, gmap: 'Racha+Island+Phuket+tour' },
     { name: '🌴 丛林飞跃 Flying Hanuman', lat: 7.9100, lng: 98.3400, type: 'spot', time: '—',
-      desc: '备选半天：🔥 巨好玩！飞猪¥400含接送。恐高慎入',
-      budget: '约¥400/人', detail: '半天搞定，安全措施到位，教练专业。跟跳岛游二选一或者分两天。', pay: { alipay: 1 }, gmap: 'Flying+Hanuman+Phuket' },
-    { name: '卡伦海滩 Karon Beach', lat: 7.8500, lng: 98.2930, type: 'spot', time: '13:00',
-      desc: '普吉第二大海滩，绵延5公里，更安静。⚠️ 注意离岸流',
-      budget: '免费', gmap: 'Karon+Beach+Phuket' },
-    { name: 'Central Phuket 购物中心', lat: 7.8920, lng: 98.3670, type: 'spot', time: '15:00',
-      desc: '普吉最大商场，两个馆（奢侈品+超市美食），空调避暑',
-      budget: '看心情', detail: '💡 江西冷（Jungceylon）是另一个选择但跟曼谷没法比，普吉整体比曼谷破很多。', pay: { card: 1, alipay: 1, wechat: 1, cash: 0.5 }, gmap: 'Central+Phuket+Floresta' },
+      desc: '备选半天：🔥 巨好玩！飞猪¥400含接送，半天搞定。恐高慎入', budget: '约¥400/人',
+      detail: '跟跳岛游二选一。安全措施到位，教练专业。普吉招牌冒险项目。', pay: { alipay: 1 }, gmap: 'Flying+Hanuman+Phuket' },
+    { name: '卡塔海滩 Kata Beach', lat: 7.8200, lng: 98.3000, type: 'spot', time: '—',
+      desc: '备选躺平：沙细浪小比芭东安静，上午人少躺在沙滩椅上发呆', budget: '免费',
+      detail: '如果跳岛和丛林飞跃都不选，来这里躺平是最好的安排。路边有餐厅和7-11。', gmap: 'Kata+Beach+Phuket' },
+    { name: 'Central Phuket / 江西冷', lat: 7.8917, lng: 98.2995, type: 'spot', time: '—',
+      desc: '备选：普吉商场，但跟曼谷没法比。当避暑+吃饭点就行', budget: '看心情',
+      detail: '💡 江西冷走路就能到，普吉整体比曼谷破很多，别期待购物体验。', pay: { alipay: 1, cash: 1 }, gmap: 'Jungceylon+Phuket' },
     { name: '🧋 牛奶小子 Milky Boy', lat: 7.8917, lng: 98.2995, type: 'drink', time: '—',
-      desc: '备选：偏甜旺仔牛奶口感，斑斓糕蛮好吃的，巧克力味一般',
-      budget: '¥8–12', pay: { cash: 1, alipay: 1 }, gmap: 'Milky+Boy+Phuket' }
-  ]},
-
-  // ═══ DAY 9: 普吉 · 自由收尾 ═══
-  { id: 9, label: 'D9 普吉', date: '9月30日 周三', title: '🏝️ 普吉 · 自由收尾日', color: '#ff2d55', locations: [
-    { name: '芭东海滩最后时光', lat: 7.8960, lng: 98.2960, type: 'spot', time: '09:00',
-      desc: '最后的海滩时光，补买手信。江西冷或Central Phuket扫货',
-      budget: '看心情', detail: '最后一天不用赶。上午海边散步，下午扫货：青草膏、鼻通、泰式咖喱酱、椰子油、Boots药妆。街边足部按摩200THB/小时。', gmap: 'Jungceylon+Shopping+Mall+Patong' },
-    { name: '酒店附近泰式按摩', lat: 7.8950, lng: 98.2990, type: 'spot', time: '—',
-      desc: '备选：随便一家都干净舒服，传统泰式฿300-500。按一次就够了',
-      budget: '约฿300-500', detail: '说实话没那么多时间一直按，1-2次够了。回来太晚太累就直接倒。', pay: { cash: 1 }, gmap: 'Thai+massage+Patong' },
+      desc: '备选：偏甜旺仔牛奶口感，斑斓糕蛮好吃，巧克力味一般', budget: '¥8–12', pay: { cash: 1, alipay: 1 }, gmap: 'Milky+Boy+Phuket' },
     { name: '芭东海边晚餐', lat: 7.8940, lng: 98.2950, type: 'food', time: '19:00',
-      desc: '最后一顿泰餐，芭东海边找家顺眼的餐厅收尾',
-      budget: '¥60–100/人', detail: '不用刻意找名店。推荐最后吃一次Tom Yum Goong和Pad Thai，回国味道就不一样了。Baan Rim Pa（悬崖餐厅）预算允许也值得。', pay: { cash: 1, card: 1 }, gmap: 'Baan+Rim+Pa+Patong+Phuket' }
+      desc: '最后一顿泰餐！Tom Yum Goong+Pad Thai收尾，回国味道就不一样了', budget: '¥60–100/人',
+      detail: '芭东海滩路边泰餐厅一排排，不用刻意找名店。Baan Rim Pa（悬崖餐厅）预算允许也值得。', pay: { cash: 1, card: 1 }, gmap: 'Baan+Rim+Pa+Patong+Phuket' }
   ]},
 
-  // ═══ DAY 10: 回家 ═══
-  { id: 10, label: 'D10 回程', date: '10月1日 周四', title: '🛫 普吉 → 曼谷 → 福州', color: '#ff3b30', locations: [
+  // ═══ D8: 9/29 返程 ═══
+  { id: 8, label: 'D8 回程', date: '9月29日 周二', title: '🛫 普吉 → 曼谷 → 福州 · 到家！', color: '#ff3b30', locations: [
     { name: '普吉国际机场 (HKT)', lat: 8.1132, lng: 98.3169, type: 'transport', time: '08:00',
-      desc: '普吉→曼谷，泰越捷/亚航，约1.5小时。Grab提前叫车',
-      budget: '¥150–250/人', detail: '💡 普吉没有直飞回国，必须飞回曼谷中转。选早班机（8:00-10:00）。', gmap: 'Phuket+International+Airport' },
+      desc: '退房，Grab去机场。普吉→曼谷约1.5小时。普吉无直飞国内必须曼谷中转', budget: '¥150–250/人', gmap: 'Phuket+International+Airport' },
     { name: '曼谷素万那普机场 (BKK)', lat: 13.6900, lng: 100.7501, type: 'transport', time: '11:00',
-      desc: '中转曼谷，确保中转≥3小时！春秋BKK→FOC周二四六执飞，10/1是周四✅',
-      budget: '转机', detail: '💡 机场购物：王权免税店在安检后（托运完进去），满1000减500常有。⚠️ 只买小件背身上。机场有超大711最后扫货。', pay: { card: 1, cash: 1 }, gmap: 'Suvarnabhumi+Airport+Bangkok' },
+      desc: '中转曼谷。确保中转≥3小时！春秋BKK→FOC周二四六执飞，9/29是周二✅', budget: '转机',
+      detail: '💡 王权免税店在安检后（托运完进去），满1000减500常有。⚠️ 只买小件背身上。机场超大711最后扫货。', pay: { card: 1, cash: 1 }, gmap: 'Suvarnabhumi+Airport+Bangkok' },
     { name: '福州长乐机场 (FOC)', lat: 25.9350, lng: 119.6630, type: 'transport', time: '—',
-      desc: '曼谷→福州直飞，春秋航空（周二四六），约4小时。到家！',
-      budget: '¥600–900/人', gmap: 'Fuzhou+Changle+International+Airport' }
+      desc: '曼谷→福州直飞，春秋航空（周二四六），约4小时。到家！🏠', budget: '¥600–900/人', gmap: 'Fuzhou+Changle+International+Airport' }
   ]}
 ];
 
 // ╔══════════════════════════════════════════════════════════════╗
-// ║  OVERVIEW CONTENT — 增强版总览                               ║
+// ║  OVERVIEW ║
 // ╚══════════════════════════════════════════════════════════════╝
 
 function overviewContent() {
   return `
-<div class="hero"><h1>泰国三城之旅</h1><p class="subtitle">曼谷 → 清迈 → 普吉岛 · 9月22日–10月1日 · 10天9晚 · 实战攻略增强版</p></div>
+<div class="hero"><h1>泰国双城之旅</h1><p class="subtitle">曼谷 → 普吉岛 · 9月22日–29日 · 8天7晚 · 实战攻略增强版</p></div>
 <div class="info-grid">
-  <div class="info-card"><div class="label">路线</div><div class="value">福州 ✈ 曼谷 ✈ 清迈 ✈ 普吉岛 ✈ 福州</div></div>
-  <div class="info-card"><div class="label">酒店</div><div class="value">曼谷2晚 · 清迈3晚 · 普吉4晚<br>¥300–400/晚 (Agoda比价)</div></div>
-  <div class="info-card"><div class="label">SPA</div><div class="value">Health Land 曼谷 + Lila Thai 清迈</div></div>
-  <div class="info-card"><div class="label">人均预算</div><div class="value">¥8,000–11,000 全包</div></div>
+  <div class="info-card"><div class="label">路线</div><div class="value">福州 ✈ 曼谷 ✈ 普吉岛 ✈ 福州</div></div>
+  <div class="info-card"><div class="label">酒店</div><div class="value">曼谷4晚 · 普吉3晚<br>¥300–500/晚 (Agoda比价)</div></div>
+  <div class="info-card"><div class="label">SPA</div><div class="value">Health Land 曼谷 · 普吉街边按摩</div></div>
+  <div class="info-card"><div class="label">人均预算</div><div class="value">¥6,500–9,500 全包</div></div>
 </div>
 
 <div class="warn-card">
   <div class="warn-title">🚨 出发前必做清单</div>
-  □ AIS电话卡（淘宝买，提前1晚用护照实名认证，信号比Happy卡好）<br>
+  □ AIS电话卡（淘宝买，提前1晚护照实名认证，信号比Happy卡好）<br>
   □ 填线上入境卡（提前1-3天）<br>
   □ 换1万泰铢/人 + 带1000元人民币（酒店押金用）<br>
   □ 打印：来回机票英文行程单 + 酒店预订单<br>
   □ 下载：Google Maps（国外自动能用）+ Grab（提前注册绑定支付宝）<br>
   □ 下载：云闪付（汇率最优，第一笔减30元！Grab选PromptPay扫码付）<br>
-  □ 买淋浴喷头+滤芯（普吉水质差，曼谷还行）<br>
+  □ 买淋浴喷头+滤芯（普吉水质差）<br>
   □ 买行李额（如果坐春秋航空）<br>
   □ 不用带：防晒/洗发水/沐浴露（711超方便又便宜）
 </div>
@@ -475,22 +380,21 @@ function overviewContent() {
 
 <div class="section-head">🔥 实战 Tips</div>
 
-<div class="tip-card"><div class="tip-title">💰 支付攻略</div><div class="tip-body">云闪付汇率最优（比支付宝/微信/银行都低），第一笔减30元。Grab打车选PromptPay用云闪付扫码支付。支付宝/微信在大商场、711、餐厅基本都支持。现金备1万泰铢/人过关+街头小吃。酒店押金用人民币（押泰铢影响日常花销）。</div></div>
+<div class="tip-card"><div class="tip-title">💰 支付攻略</div><div class="tip-body">云闪付汇率最优（比支付宝/微信/银行都低），第一笔减30元。Grab打车选PromptPay用云闪付扫码。支付宝/微信在大商场、711、餐厅基本都支持。现金1万泰铢/人过关+街头小吃。酒店押金用人民币。</div></div>
 
-<div class="tip-card"><div class="tip-title">🚗 交通真相</div><div class="tip-body">打车一天约¥100-200，机场到酒店单程约¥200。Grab车都香香的很干净，司机心态超好（堵一小时不按喇叭）。突突车漫天要价别坐。BTS/MRT不互通换乘麻烦，但住BTS站附近有优势。接送机都靠Grab。</div></div>
+<div class="tip-card"><div class="tip-title">🚗 交通真相</div><div class="tip-body">打车一天约¥100-200，机场到酒店单程约¥200。Grab车都香香的，司机心态超好（堵一小时不按喇叭）。突突车漫天要价别坐。BTS/MRT不互通换乘麻烦，但住BTS站附近有优势。接送机都靠Grab。</div></div>
 
-<div class="tip-card"><div class="tip-title">🍜 奶茶三巨头</div><div class="tip-body">🥇 <strong>手标奶茶 ChaTraMue</strong> — 红泰奶+light sweet三分糖，遍地都是，茶叶可当伴手礼<br>🥈 <strong>猫头鹰奶茶</strong> — 泰奶珍珠奶茶，连点两晚外卖！Grab可达<br>🥉 <strong>PangCha</strong> — 百丽宫&amp;暹罗天地都有，奶茶界天花板<br>🏅 牛奶小子 Milky Boy — 偏甜旺仔牛奶口感，斑斓糕好吃</div></div>
+<div class="tip-card"><div class="tip-title">🍜 奶茶三巨头</div><div class="tip-body">🥇 <strong>手标奶茶 ChaTraMue</strong> — 红泰奶+light sweet三分糖，遍地都是<br>🥈 <strong>猫头鹰奶茶</strong> — 泰奶珍珠奶茶，Grab外卖连点两晚！<br>🥉 <strong>PangCha</strong> — 百丽宫&amp;Iconsiam都有，奶茶界天花板<br>🏅 牛奶小子 Milky Boy — 偏甜旺仔牛奶，斑斓糕好吃</div></div>
 
-<div class="tip-card"><div class="tip-title">🛍️ 购物指南</div><div class="tip-body">青草药膏/鼻通/膏药 → Big C超市（比免税店便宜）<br>免税护肤品 → 素万纳普王权免税店（安检后！满1000减500）<br>最后扫货 → 机场超大711<br>榴莲 → 暹罗百丽宫地下超市（熟食区吃完，别带出去！）<br>茶叶 → 手标奶茶店</div></div>
+<div class="tip-card"><div class="tip-title">🛍️ 购物指南</div><div class="tip-body">青草药膏/鼻通/膏药 → Big C超市（比免税店便宜）<br>免税护肤品 → 素万纳普王权免税店（安检后！满1000减500）<br>最后扫货 → 机场超大711<br>榴莲 → 暹罗百丽宫地下超市（熟食区吃完，别带出去！）</div></div>
 
-<div class="warn-card"><div class="warn-title">❌ 避雷清单</div>乍都乍周末市场 — 义乌商场既视感<br>某水上市场 — 水脏（水门寺大佛拍照机位除外）<br>郑王庙白天版 — 很一般，夜游时路过看就行<br>快艇/游艇跳岛 — 雨季危险，必须选游轮<br>7晚换4个酒店 — 太折腾，固定1-2家<br>突突车 — 漫天要价</div>
+<div class="warn-card"><div class="warn-title">❌ 避雷清单</div>乍都乍周末市场 — 义乌商场既视感<br>某水上市场 — 水脏（大佛拍照机位除外）<br>郑王庙白天版 — 很一般，夜游路过看就行<br>快艇/游艇跳岛 — 雨季危险，必须选游轮<br>7晚换4个酒店 — 太折腾，固定住<br>突突车 — 漫天要价</div>
 
 <div class="section-head">支付提醒</div>
 <div class="pay-summary"><h4>💴 现金为王</h4>夜市、街边摊大多<span class="warn">只收现金</span>。建议换10,000–15,000泰铢随身。711、商场可用支付宝/微信。云闪付汇率最优。</div>
-<div class="pay-summary"><h4>🧖 SPA需预约</h4>Health Land和Lila Thai都建议<span class="warn">提前1天电话预约</span>。说实话没那么多时间一直按，1-2次够了。</div>
 <div class="pay-summary"><h4>⚠️ 普吉九月天气+水质</h4>雨季末期<span class="warn">阵雨频繁但间歇放晴</span>。海滩红旗不要下水。自带淋浴喷头+滤芯（普吉水质差）。</div>
-<div class="pay-summary"><h4>⚠️ 10月1日中转</h4>普吉→曼谷→福州，确保<span class="warn">中转≥3小时</span>！春秋BKK→FOC周二四六（10/1是周四✅）。普吉无直飞国内。</div>
-<div class="pay-summary"><h4>🏨 酒店注意事项</h4>Agoda比携程/去哪儿都便宜。押金用人民币现金。<span class="warn">绝大部分酒店禁榴莲！</span></div>
+<div class="pay-summary"><h4>⚠️ 9月29日中转</h4>普吉→曼谷→福州，确保<span class="warn">中转≥3小时</span>！春秋BKK→FOC周二四六（9/29是周二✅）。普吉无直飞国内。</div>
+<div class="pay-summary"><h4>🏨 酒店注意事项</h4>Agoda比携程/去哪儿都便宜。押金用人民币现金。<span class="warn">绝大部分酒店禁榴莲！</span>小红书上搜一下有没有不好的反馈。</div>
 
 <div class="section-head">图例</div>
 <div class="legend">
@@ -503,26 +407,20 @@ function overviewContent() {
 }
 
 // ╔══════════════════════════════════════════════════════════════╗
-// ║  ENGINE                                                      ║
+// ║  ENGINE ║
 // ╚══════════════════════════════════════════════════════════════╝
 
-const map = L.map('map', { center: [HOTEL.lat || 13.75, HOTEL.lng || 100.55], zoom: 5, zoomControl: false, attributionControl: true });
+const map = L.map('map', { center: [13.72, 100.55], zoom: 5, zoomControl: false, attributionControl: true });
 L.control.zoom({ position: 'topright' }).addTo(map);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(map);
 
 const LocateControl = L.Control.extend({
   options: { position: 'bottomright' },
   onAdd() {
-    const btn = L.DomUtil.create('button', 'locate-btn');
-    btn.innerHTML = '📍';
-    btn.title = '我的位置';
+    const btn = L.DomUtil.create('button', 'locate-btn'); btn.innerHTML = '📍'; btn.title = '我的位置';
     L.DomEvent.disableClickPropagation(btn);
-    btn.addEventListener('click', () => {
-      btn.classList.add('active');
-      map.locate({ setView: true, maxZoom: 15 });
-    });
-    this._btn = btn;
-    return btn;
+    btn.addEventListener('click', () => { btn.classList.add('active'); map.locate({ setView: true, maxZoom: 15 }); });
+    this._btn = btn; return btn;
   }
 });
 new LocateControl().addTo(map);
@@ -531,10 +429,7 @@ map.on('locationfound', e => {
   const r = e.accuracy / 2;
   if (locMarker) { locMarker.setLatLng(e.latlng); locCircle.setLatLng(e.latlng).setRadius(r); }
   else {
-    locMarker = L.marker(e.latlng, {
-      icon: L.divIcon({ className:'', html:'<div style="width:14px;height:14px;border-radius:50%;background:#007aff;border:2.5px solid #fff;box-shadow:0 0 6px rgba(0,122,255,.5)"></div><div class="loc-pulse" style="position:absolute;top:0;left:0"></div>', iconSize:[14,14], iconAnchor:[7,7] }),
-      zIndexOffset: 2000
-    }).addTo(map);
+    locMarker = L.marker(e.latlng, { icon: L.divIcon({ className:'', html:'<div style="width:14px;height:14px;border-radius:50%;background:#007aff;border:2.5px solid #fff;box-shadow:0 0 6px rgba(0,122,255,.5)"></div><div class="loc-pulse" style="position:absolute;top:0;left:0"></div>', iconSize:[14,14], iconAnchor:[7,7] }), zIndexOffset: 2000 }).addTo(map);
     locCircle = L.circle(e.latlng, { radius: r, color: '#007aff', fillColor: '#007aff', fillOpacity: .08, weight: 1 }).addTo(map);
   }
 });
@@ -545,7 +440,7 @@ function icon(color, emoji) {
 }
 
 if (HOTEL.lat) L.marker([HOTEL.lat, HOTEL.lng], { icon: icon('#ff9500','🏨'), zIndexOffset: 1000 }).addTo(map).bindPopup(`<b>${HOTEL.name}</b>`);
-L.marker([7.8950, 98.2990], { icon: icon('#ff9500','🏨'), zIndexOffset: 1000 }).addTo(map).bindPopup('<b>普吉 · 芭东酒店区域</b><br>步行到江西冷，干净舒服');
+L.marker([7.8950, 98.2990], { icon: icon('#ff9500','🏨'), zIndexOffset: 1000 }).addTo(map).bindPopup('<b>普吉 · 芭东酒店</b><br>步行到江西冷，干净舒服');
 
 let markers = [], polylines = [];
 const emojis = { food:'🍽️', spot:'📍', hotel:'🏨', transport:'✈️', drink:'🍺' };
@@ -596,26 +491,17 @@ const IN_APP_WEBVIEW = (() => {
   return /micromessenger|xhs|xhsdiscover|discover\/|tiktok|aweme|weibo|qq\/|qqbrowser|alipayclient|dingtalk|lark|feishu|ucbrowser|baiduboxapp|toutiao|newsarticle/.test(ua);
 })();
 
-const CITY_CN = {1:'曼谷',2:'曼谷',3:'清迈',4:'清迈',5:'清迈',6:'普吉岛',7:'普吉岛',8:'普吉岛',9:'普吉岛',10:'普吉岛'};
+const CITY_CN = {1:'曼谷',2:'曼谷',3:'曼谷',4:'曼谷',5:'普吉岛',6:'普吉岛',7:'普吉岛',8:''};
 
 function makeKeyword(name, dayIdx) {
   const cleaned = name.replace(/⭐.*$/g,'').replace(/（.*?）/g,'').replace(/\(.*?\)/g,'').replace(/\s+/g,' ').trim();
   const city = CITY_CN[dayIdx] || '';
   return city ? `${city} ${cleaned}` : cleaned;
 }
-function xhsKeyword(loc, dayIdx) {
-  if (loc.xhsKeyword) return loc.xhsKeyword.trim();
-  return makeKeyword(loc.name, dayIdx);
-}
-function xhsWebUrl(loc, dayIdx) {
-  return `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(xhsKeyword(loc, dayIdx))}`;
-}
-function xhsAppUrl(loc, dayIdx) {
-  return `xhsdiscover://search/result?keyword=${encodeURIComponent(xhsKeyword(loc, dayIdx))}&target_search=notes&source=deeplink`;
-}
-function dpWebUrl(loc, dayIdx) {
-  return `https://www.dianping.com/search/keyword/1/0_${encodeURIComponent(xhsKeyword(loc, dayIdx))}`;
-}
+function xhsKeyword(loc, dayIdx) { return loc.xhsKeyword ? loc.xhsKeyword.trim() : makeKeyword(loc.name, dayIdx); }
+function xhsWebUrl(loc, dayIdx) { return `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(xhsKeyword(loc, dayIdx))}`; }
+function xhsAppUrl(loc, dayIdx) { return `xhsdiscover://search/result?keyword=${encodeURIComponent(xhsKeyword(loc, dayIdx))}&target_search=notes&source=deeplink`; }
+function dpWebUrl(loc, dayIdx) { return `https://www.dianping.com/search/keyword/1/0_${encodeURIComponent(xhsKeyword(loc, dayIdx))}`; }
 
 function locCard(loc, dayIdx) {
   const dot = loc.type==='food'?'food':loc.type==='spot'?'spot':loc.type==='drink'?'drink':loc.type==='hotel'?'hotel':'transport';
@@ -623,18 +509,10 @@ function locCard(loc, dayIdx) {
   const uid = `d${dayIdx}-${loc.name.replace(/\W/g,'')}`;
   const gmapQ = loc.gmap||encodeURIComponent(loc.name);
   let lnk = `<button class="btn nav" onclick="openAS('${loc.name.replace(/'/g,"\\'")}',${loc.lat},${loc.lng},'${gmapQ}')">📍 导航</button>`;
-  if (loc.xhs) {
-    lnk += `<a href="${loc.xhs}" target="_blank" class="btn xhs">📕 小红书</a>`;
-  } else {
-    const appUrl = xhsAppUrl(loc, dayIdx);
-    const webUrl = xhsWebUrl(loc, dayIdx);
-    lnk += `<a href="${appUrl}" class="btn xhs" onclick="setTimeout(function(){window.open('${webUrl}','_blank')},800)">📕 搜攻略</a>`;
-  }
-  if (loc.dianping) {
-    lnk += `<a href="${loc.dianping}" target="_blank" class="btn dp">🍜 大众点评</a>`;
-  } else if ((loc.type==='food' || loc.type==='drink') && loc.dianping !== false) {
-    lnk += `<a href="${dpWebUrl(loc, dayIdx)}" target="_blank" class="btn dp">🍜 大众点评</a>`;
-  }
+  if (loc.xhs) { lnk += `<a href="${loc.xhs}" target="_blank" class="btn xhs">📕 小红书</a>`; }
+  else { const appUrl = xhsAppUrl(loc, dayIdx); const webUrl = xhsWebUrl(loc, dayIdx); lnk += `<a href="${appUrl}" class="btn xhs" onclick="setTimeout(function(){window.open('${webUrl}','_blank')},800)">📕 搜攻略</a>`; }
+  if (loc.dianping) { lnk += `<a href="${loc.dianping}" target="_blank" class="btn dp">🍜 大众点评</a>`; }
+  else if ((loc.type==='food' || loc.type==='drink') && loc.dianping !== false) { lnk += `<a href="${dpWebUrl(loc, dayIdx)}" target="_blank" class="btn dp">🍜 大众点评</a>`; }
   if(loc.reserve) lnk += `<a href="${loc.reserve}" target="_blank" class="btn rsv">📅 预约/预订</a>`;
   return `<div class="tl-item"><div class="tl-dot ${dot}"></div><div class="card" onclick="if(!event.target.closest('.btn,.links'))toggle('${uid}')"><div class="time">${loc.time!=='—'?loc.time:'备选'}</div><div class="name">${bdg} ${loc.name}</div><div class="desc">${loc.desc}</div>${loc.budget?'<div class="budget">'+loc.budget+'</div>':''}${payChips(loc.pay)}<div class="links">${lnk}</div>${loc.detail?'<div class="details" id="'+uid+'">'+loc.detail.replace(/\n/g,'<br>')+'</div>':''}</div></div>`;
 }
@@ -649,16 +527,13 @@ function renderDay(idx) {
   return h;
 }
 
-// ══════════ NAV ══════════
 let cur = 0;
 const tabsEl = document.getElementById('tabs');
 const contentEl = document.getElementById('content');
 
 DAYS.forEach(d => {
   const btn = document.createElement('button');
-  btn.className = 'tab' + (d.id===0?' active':'');
-  btn.dataset.day = d.id;
-  btn.textContent = d.label;
+  btn.className = 'tab' + (d.id===0?' active':''); btn.dataset.day = d.id; btn.textContent = d.label;
   tabsEl.appendChild(btn);
 });
 
@@ -666,37 +541,27 @@ function go(idx) {
   cur = idx;
   tabsEl.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', +t.dataset.day===idx));
   contentEl.innerHTML = idx===0 ? overviewContent() : renderDay(idx);
-  showDay(idx);
-  contentEl.scrollTo({top:0});
+  showDay(idx); contentEl.scrollTo({top:0});
   const tab = tabsEl.querySelector(`[data-day="${idx}"]`);
   if(tab) tab.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
 }
-
 function toggle(id) { const el=document.getElementById(id); if(el) el.classList.toggle('closed'); }
-
 tabsEl.addEventListener('click', e => { const t=e.target.closest('.tab'); if(t) go(+t.dataset.day); });
-
 go(0);
 
 /* ── Action Sheet ── */
 const asOverlay = document.createElement('div');
 asOverlay.className = 'as-overlay';
-asOverlay.innerHTML = `<div class="as-sheet">
-  <div class="as-group" id="as-opts"></div>
-  <div class="as-group"><button class="as-item as-cancel" onclick="closeAS()">取消</button></div>
-</div>`;
+asOverlay.innerHTML = `<div class="as-sheet"><div class="as-group" id="as-opts"></div><div class="as-group"><button class="as-item as-cancel" onclick="closeAS()">取消</button></div></div>`;
 document.body.appendChild(asOverlay);
 asOverlay.addEventListener('click', e => { if (e.target === asOverlay) closeAS(); });
 
 const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
 function openAS(name, lat, lng, gmap) {
   const q = gmap || encodeURIComponent(name);
   const encName = encodeURIComponent(name);
   const safeName = name.replace(/'/g,"\\'");
-  const appleUrl = IN_APP_WEBVIEW
-    ? `https://maps.apple.com/?q=${lat},${lng}&ll=${lat},${lng}&name=${encName}`
-    : `maps://maps.apple.com/?q=${lat},${lng}&name=${encName}`;
+  const appleUrl = IN_APP_WEBVIEW ? `https://maps.apple.com/?q=${lat},${lng}&ll=${lat},${lng}&name=${encName}` : `maps://maps.apple.com/?q=${lat},${lng}&name=${encName}`;
   const googleUrl = `https://www.google.com/maps/search/?api=1&query=${q}`;
   document.getElementById('as-opts').innerHTML =
     `<button class="as-item" onclick="window.open('${appleUrl}');closeAS()">🍎 Apple Maps</button>` +
