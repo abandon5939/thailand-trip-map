@@ -51,7 +51,7 @@
 12:45 午餐：Som Tam Nua 青木瓜沙拉专门店
 13:30 Siam 商圈购物：Siam Discovery → CentralWorld
 17:30 回酒店休息 + 换衣服
-19:00 唐人街（Yaowarat）夜市 — 烤鱿鱼、猪脚饭、泰式炒河粉
+19:00 Terminal 21 美食街（Pier 21）— 就在Asok站，回酒店步行就到
 21:00 🧖 SPA ①：Health Land Asok — 传统泰式按摩 2小时 ¥130/人
 ```
 
@@ -177,7 +177,7 @@
 | 天 | 午餐 | 晚餐 |
 |----|------|------|
 | Day 1 | — | Jodd Fairs 夜市 |
-| Day 2 | Siam 商圈 / Som Tam Nua | 唐人街 Yaowarat |
+| Day 2 | Siam 商圈 / Som Tam Nua | Terminal 21 美食街 |
 | Day 3 | 古城咖喱面 Khao Soi Khun Yai | 长康路夜市 |
 | Day 4 | 🍳 奶奶厨房自己做 | 清迈门夜市 |
 | Day 5 | Jing Jai Market 逛吃 | Huen Phen 泰北菜 |
