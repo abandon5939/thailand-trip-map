@@ -205,10 +205,7 @@ const DAYS = [
   ]},
 
   // ═══ D2: 9/23 曼谷 · 湄南河+大皇宫+商圈 ═══
-  { id: 2, label: 'D2 曼谷', date: '9月23日 周三', title: '🏙️ 曼谷 · 湄南河游船+大皇宫+商圈', color: '#ff9500', locations: [
-    { name: '湄南河游船 (Chao Phraya Express)', lat: 13.7200, lng: 100.5140, type: 'spot', time: '09:30',
-      desc: '从Sathorn码头坐橙色旗公交船北上，沿河看郑王庙+大皇宫+河滨风光', budget: '15–40THB/人',
-      detail: 'BTS坐到Saphan Taksin站，下楼就是Sathorn码头。坐橙色旗公交船（15THB），沿湄南河北上。比打车快、比地铁有趣，曼谷最地道的水上交通。', pay: { cash: 1 }, gmap: 'Sathorn+Pier+Chao+Phraya+Express+Boat' },
+  { id: 2, label: 'D2 曼谷', date: '9月23日 周三', title: '🏙️ 曼谷 · 大皇宫+水门寺+百丽宫+朱拉隆功夜市', color: '#ff9500', locations: [
     { name: '郑王庙 (Wat Arun) 河对岸机位', lat: 13.7437, lng: 100.4888, type: 'spot', time: '10:15',
       desc: '渡河船4泰铢到对岸，不进庙。船上就是最佳拍照角度', budget: '4THB渡船费',
       detail: '对岸有咖啡馆坐着慢慢拍，穿浅色衣服更出片。⚠️ 白天看很一般，夜游时路过看才好看。', gmap: 'Wat+Arun+Bangkok' },
@@ -224,9 +221,9 @@ const DAYS = [
     { name: 'Siam 商圈 · 暹罗百丽宫', lat: 13.7464, lng: 100.5347, type: 'spot', time: '16:00',
       desc: '比澳门豪华100倍！地下超市有榴莲专区，BTS直达',
       detail: '💡 百丽宫实战：品牌超全，地下超市榴莲品种超多，买完在熟食区吃完（酒店商场禁榴莲）。CentralWorld有本土设计师品牌。', pay: { card: 1, alipay: 1, wechat: 1, cash: 0.5 }, gmap: 'Siam+Paragon+Bangkok' },
-    { name: 'Terminal 21 美食街', lat: 13.7375, lng: 100.5600, type: 'food', time: '19:00',
-      desc: 'Asok站旁商场，Pier 21美食广场泰餐便宜又地道，回酒店步行就到', budget: '¥30–50/人',
-      detail: '五楼Pier 21是曼谷性价比最高的美食广场。猪脚饭、泰式炒粉、芒果糯米饭每份30–50THB。吃完饭BTS一站回酒店。', pay: { cash: 1 }, gmap: 'Terminal+21+Asok+Bangkok' },
+    { name: '朱拉隆功夜市 · 松松海鲜', lat: 13.7370, lng: 100.5300, type: 'food', time: '18:00',
+      desc: '🔥 队友第一晚吃非常惊艳！新鲜便宜的海鲜，就在Siam商圈附近步行可达', budget: '¥50–100/人',
+      detail: '从百丽宫步行或BTS一站即到。晚上很热闹，吃完去旁边牛奶小子打卡。全熟食没问题。', pay: { cash: 1, alipay: 1 }, gmap: 'Songsong+Seafood+Bangkok' },
     { name: 'Health Land Asok SPA', lat: 13.7370, lng: 100.5605, type: 'spot', time: '21:00',
       desc: '🧖 SPA 传统泰式按摩 2小时，650THB，性价比之王', budget: '¥130/人',
       detail: '曼谷老牌连锁SPA，技师手法稳定。推荐传统泰式按摩2小时（650THB）。提前1天电话预约：+66 2-261-2260。', pay: { cash: 1, card: 1 },
@@ -234,7 +231,7 @@ const DAYS = [
   ]},
 
   // ═══ D3: 9/24 曼谷 · 蓝旗号夜游+Iconsiam ═══
-  { id: 3, label: 'D3 曼谷', date: '9月24日 周四', title: '🌃 曼谷 · Iconsiam+蓝旗号夜游湄南河', color: '#007aff', locations: [
+  { id: 3, label: 'D3 曼谷', date: '9月24日 周四', title: '🌃 曼谷 · Iconsiam+四面佛+蓝旗号夜游', color: '#007aff', locations: [
     { name: '暹罗天地 Iconsiam', lat: 13.7268, lng: 100.5103, type: 'spot', time: '11:00',
       desc: '🔥 富人天堂！门口停满豪车，湄南河畔超豪华商场，BTS+接驳船可达', budget: '看心情',
       detail: '曼谷最新地标商场，室内水上市场、品牌旗舰店、河景餐厅。PangCha奶茶有分店。可以逛到下午再出来。', pay: { alipay: 1, wechat: 1, cash: 1 }, gmap: 'Iconsiam+Bangkok' },
@@ -251,9 +248,9 @@ const DAYS = [
       detail: '💡 夜游攻略：定位出发码头非中途码头。⚠️ 17:50前到！蓝旗号！冲二楼右边坐！中途像公交一样有人上来，晚了没位。夜景绝美比白天好看10倍。', pay: { cash: 1 }, gmap: 'Sathorn+Pier+Bangkok+night+cruise' },
     { name: '夜游湄南河', lat: 13.7230, lng: 100.5120, type: 'spot', time: '18:30',
       desc: '蓝旗号二楼右边甲板，拍郑王庙+大皇宫夜景+两岸灯光，体验拉满', gmap: 'Chao+Phraya+night+cruise+Bangkok' },
-    { name: '朱拉隆功夜市 · 松松海鲜', lat: 13.7370, lng: 100.5300, type: 'food', time: '20:30',
-      desc: '🔥 队友第一晚吃非常惊艳！新鲜便宜的海鲜，晚上很热闹', budget: '¥50–100/人',
-      detail: '可跟牛奶小子一起打卡。如果不想吃海鲜，Terminal21 Pier 21也是好选择。', pay: { cash: 1, alipay: 1 }, gmap: 'Songsong+Seafood+Bangkok' }
+    { name: 'Terminal 21 美食街', lat: 13.7375, lng: 100.5600, type: 'food', time: '20:30',
+      desc: '夜游结束后BTS从Saphan Taksin到Asok，Pier 21美食广场便宜又地道，吃完饭步行回酒店', budget: '¥30–50/人',
+      detail: '五楼Pier 21是曼谷性价比最高的美食广场。猪脚饭、泰式炒粉、芒果糯米饭每份30–50THB。夜游结束约20:00，BTS一站到Asok，吃完走路回酒店。', pay: { cash: 1 }, gmap: 'Terminal+21+Asok+Bangkok' }
   ]},
 
   // ═══ D4: 9/25 曼谷 · 自由探索 ═══
