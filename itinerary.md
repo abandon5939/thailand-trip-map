@@ -42,14 +42,22 @@
 
 ```
 09:00 自然醒，酒店附近早午餐
-10:30 郑王庙（Wat Arun）— 河对岸拍外景，不进庙
-12:00 午餐：Siam 商圈 food court 或 Som Tam Nua
+10:00 🚤 湄南河游船 — BTS到Saphan Taksin站，坐橙色旗公交船北上
+      → 沿河看郑王庙+大皇宫，到Tha Tien码头下船
+10:45 郑王庙（Wat Arun）— 渡河船4泰铢到对岸拍外景，不进庙
+12:00 🌉 Ratchaprasong 空中天桥 — BTS回Siam站，走空中走廊到Chit Lom
+      → 俯瞰曼谷最繁华十字路口，免费，拍照出片
+12:15 🙏 四面佛（Erawan Shrine）— 天桥正下方，免费参拜
+12:45 午餐：Som Tam Nua 青木瓜沙拉专门店
 13:30 Siam 商圈购物：Siam Discovery → CentralWorld
 17:30 回酒店休息 + 换衣服
 19:00 唐人街（Yaowarat）夜市 — 烤鱿鱼、猪脚饭、泰式炒河粉
 21:00 🧖 SPA ①：Health Land Asok — 传统泰式按摩 2小时 ¥130/人
 ```
 
+- 🚤 **湄南河游船**：橙色旗公交船15THB/人，曼谷本地人日常交通，比打车快且有趣
+- 🌉 **天桥**：连接BTS Siam和Chit Lom的空中走廊，免费，俯瞰城市交通
+- 🙏 **四面佛**：曼谷最灵验佛龛，户外免费，在天桥正下方
 - 🧖 **SPA**：Health Land Asok，传统泰式 2小时 650泰铢，提前电话预约
 
 ### Day 3 — 9月24日（周四）🛫 曼谷 → 清迈
