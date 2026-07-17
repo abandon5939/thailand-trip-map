@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>泰国三城：曼谷 → 清迈 → 苏梅岛</title>
-<meta name="description" content="9月22日–10月1日 · 曼谷 + 清迈 + 苏梅岛 · 10天9晚">
+<title>泰国三城：曼谷 → 清迈 → 普吉岛</title>
+<meta name="description" content="9月22日–10月1日 · 曼谷 + 清迈 + 普吉岛 · 10天9晚 · 住宿300-400/晚">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -215,7 +215,7 @@ a:hover { text-decoration: underline; }
 // ║  HOTEL & DAYS DATA                                          ║
 // ╚══════════════════════════════════════════════════════════════╝
 
-const HOTEL = { name: 'Sacha\'s Hotel Uno · 曼谷', lat: 13.7370, lng: 100.5600 };
+const HOTEL = { name: 'Ibis Bangkok Siam', lat: 13.7465, lng: 100.5290 };
 
 const DAYS = [
   { id: 0, label: '总览', color: '#0071e3', locations: [] },
@@ -231,11 +231,11 @@ const DAYS = [
       desc: '抵达曼谷（当地时间），入境后打车去酒店约40分钟',
       budget: '打车约300–400THB', detail: '建议用Grab打车，机场到Asok区约40分钟。出租车在1楼出口，记得让司机打表（by meter）。',
       pay: { cash: 1, card: 0.5 } },
-    { name: 'Sacha\'s Hotel Uno', lat: 13.7370, lng: 100.5600, type: 'hotel', time: '22:00',
-      desc: '入住 Sukhumvit/Asok 区域，BTS Asok站步行2分钟',
-      budget: '¥230/晚', detail: '位置极佳，对面有7-11，附近小吃摊和按摩店密集。Booking评分8.8。建议提前2–4周在Agoda/Booking预订。',
+    { name: 'Ibis Bangkok Siam', lat: 13.7465, lng: 100.5290, type: 'hotel', time: '22:00',
+      desc: '入住 Siam 区域，BTS National Stadium 站旁，步行到MBK和Siam商圈',
+      budget: '¥350/晚', detail: '国际连锁品质稳定，位置极佳。步行可达MBK、Siam Discovery。24小时前台，有餐厅。建议提前2-4周在Agoda/Booking预订。',
       pay: { card: 1, alipay: 0.5, cash: 1 },
-      gmap: 'Sacha+Hotel+Uno+Bangkok' },
+      gmap: 'Ibis+Bangkok+Siam' },
     { name: 'Jodd Fairs 夜市', lat: 13.7550, lng: 100.5684, type: 'food', time: '23:00',
       desc: '火山排骨、芒果糯米饭、泰式奶茶，营业到凌晨',
       budget: '¥40–80/人', detail: '曼谷最火的新夜市，原拉差达火车夜市搬迁而来。必吃：火山排骨（辣度可选）、烤大虾、芒果糯米饭。大多数摊位只收现金。',
@@ -282,11 +282,11 @@ const DAYS = [
       desc: '曼谷→清迈，泰亚航/狮航，1小时10分，每天多班',
       budget: '¥110–180/人', detail: '从廊曼DMK出发，选早班机（8:00–9:00之间航班很多）。提前3–4周在AirAsia或Lion Air官网买最便宜。',
       gmap: 'Chiang+Mai+International+Airport' },
-    { name: 'Wachira Guesthouse', lat: 18.7870, lng: 98.9880, type: 'hotel', time: '11:00',
-      desc: '入住清迈古城民宿，老板会中文，步行到契迪龙寺3分钟',
-      budget: '¥100/晚', detail: '十年没涨价的老牌民宿，老板会中文沟通无碍。古城核心位置，到夜市和寺庙都是步行距离。可提前入住/延迟退房（视空房情况），不收费。',
-      pay: { cash: 1, card: 0.5 },
-      gmap: 'Wachira+Guesthouse+Chiang+Mai' },
+    { name: 'BED Chiangmai Gate Hotel', lat: 18.7820, lng: 98.9860, type: 'hotel', time: '11:00',
+      desc: '入住清迈古城南门附近，设计感精品酒店，泳池+免费早餐',
+      budget: '¥350/晚', detail: '清迈口碑精品酒店，黑白极简风格。含丰盛自助早餐（新鲜水果、泰式小吃）。古城南门位置，步行到周六夜市和周日夜市都很近。提前2-4周在Agoda预订。',
+      pay: { card: 1, alipay: 0.5, cash: 1 },
+      gmap: 'BED+Chiangmai+Gate+Hotel' },
     { name: 'Khao Soi Khun Yai 咖喱面', lat: 18.7930, lng: 98.9880, type: 'food', time: '12:00',
       desc: '清迈最正宗的泰北咖喱面（Khao Soi），古城北边老店',
       budget: '¥10–15/人', detail: '只开中午，卖完就收。招牌咖喱面分鸡肉/牛肉/猪肉，汤底浓郁，面条一半炸一半煮。配一杯泰式奶茶，地道清迈第一餐。',
@@ -347,98 +347,98 @@ const DAYS = [
       gmap: 'Huen+Phen+Chiang+Mai' }
   ]},
 
-  // ── DAY 6: 清迈 → 苏梅岛 ──
-  { id: 6, label: 'D6 苏梅', date: '9月27日 周日', title: '🛫 清迈 → 苏梅岛 · 上岛躺平', color: '#007aff', locations: [
-    { name: '苏梅岛机场 (USM)', lat: 9.5478, lng: 100.0625, type: 'transport', time: '13:20',
-      desc: '曼谷航空PG242，清迈直飞苏梅，1小时45分，全球最美花园机场',
-      budget: '¥700–900/人', detail: '曼谷航空垄断此航线，建议提前1–2个月买。苏梅机场本身就是景点——露天候机厅、花园走道、免费小食。9月是淡季，票价是全年最低之一。',
-      gmap: 'Samui+International+Airport' },
-    { name: '查汶海滩酒店', lat: 9.5270, lng: 100.0580, type: 'hotel', time: '14:00',
-      desc: '入住查汶海滩区域，步行到海滩3分钟',
-      budget: '¥200–300/晚', detail: '查汶是苏梅最繁华的区域，餐厅酒吧商店密集。推荐：Chaweng Beach Hotel（¥200起）或Mercure Samui Chaweng Tana（¥500起，有泳池）。通过携程/Agoda比价预订。',
-      pay: { card: 1, cash: 1, alipay: 0.5 },
-      gmap: 'Chaweng+Beach+Hotel+Koh+Samui' },
-    { name: '查汶海滩', lat: 9.5290, lng: 100.0600, type: 'spot', time: '15:00',
-      desc: '🏖️ 苏梅最长沙滩，沙细水清，开躺！',
-      budget: '免费', detail: '苏梅岛东海岸，绵延7公里的白沙海滩。沙细如粉，水清见底。9月底人少，不用抢躺椅。沙滩边有餐厅和酒吧，可以点杯椰子坐着看海。',
-      gmap: 'Chaweng+Beach+Koh+Samui' },
-    { name: '拉迈周日夜市', lat: 9.4670, lng: 100.0460, type: 'food', time: '18:00',
-      desc: '苏梅最大的周日市场，烤海鲜、沙爹串、椰子冰淇淋',
-      budget: '¥40–80/人', detail: '拉迈区麦当劳对面，每周日17:00开始。比查汶的夜市更local、更便宜。烤大虾、烤鱿鱼（全熟）、沙爹猪肉串、椰子冰淇淋。记得带现金。',
+  // ── DAY 6: 清迈 → 普吉岛 ──
+  { id: 6, label: 'D6 普吉', date: '9月27日 周日', title: '🛫 清迈 → 普吉岛 · 上岛+周末夜市', color: '#ff2d55', locations: [
+    { name: '清迈国际机场 (CNX)', lat: 18.7669, lng: 98.9625, type: 'transport', time: '09:30',
+      desc: '泰国亚航/越捷，清迈直飞普吉岛，约2小时',
+      budget: '¥200–400/人', detail: '清迈到普吉每天有多班直飞，泰国亚航和越捷为主。9月是淡季，票价便宜。建议提前3-4周在AirAsia或VietJet官网购买。',
+      gmap: 'Chiang+Mai+International+Airport' },
+    { name: '普吉国际机场 (HKT)', lat: 8.1132, lng: 98.3169, type: 'transport', time: '12:30',
+      desc: '抵达普吉岛，打车去芭东约45分钟',
+      budget: '打车约600–800THB', detail: '普吉机场到芭东海滩约45公里。推荐用Grab或Bolt打车，约600-800THB。也有机场大巴到芭东（100THB/人），但较慢。',
       pay: { cash: 1 },
-      gmap: 'Lamai+Sunday+Night+Market+Koh+Samui' }
+      gmap: 'Phuket+International+Airport' },
+    { name: 'Nipa Resort Patong', lat: 7.8950, lng: 98.2980, type: 'hotel', time: '14:00',
+      desc: '入住芭东海滩区域，泳池度假酒店，步行到海滩+江西冷商场',
+      budget: '¥350/晚', detail: '芭东核心位置，有泳池和花园。步行到芭东海滩5分钟，到江西冷商场10分钟。提前2-4周在Agoda/Booking预订，9月淡季价格更低。',
+      pay: { card: 1, cash: 1, alipay: 0.5 },
+      gmap: 'Nipa+Resort+Patong+Phuket' },
+    { name: '芭东海滩', lat: 7.8960, lng: 98.2960, type: 'spot', time: '15:00',
+      desc: '🏖️ 普吉最热闹的海滩，先感受一下印度洋的海风',
+      budget: '免费', detail: '普吉岛西海岸最繁华的海滩，3公里长沙滩。沙滩边餐厅酒吧密集。9月底阵雨频繁但间歇放晴，抓紧晴天躺。⚠️ 看到红旗不要下水，雨季离岸流危险。',
+      gmap: 'Patong+Beach+Phuket' },
+    { name: '普吉周末夜市 (Old Town)', lat: 7.8860, lng: 98.3880, type: 'food', time: '17:00',
+      desc: '周日限定！老城区步行街夜市，手工品+地道小吃+街头表演',
+      budget: '¥40–80/人', detail: '普吉最有人情味的夜市，Thalang Road封路变成步行街。手工饰品、复古T恤、街头艺人表演。小吃推荐：泰南咖喱、沙爹串、椰子冰淇淋。周日16:00-22:00。',
+      pay: { cash: 1 },
+      gmap: 'Phuket+Weekend+Market+Old+Town' }
   ]},
 
-  // ── DAY 7: 苏梅岛 · 南海岸 ──
-  { id: 7, label: 'D7 苏梅', date: '9月28日 周一', title: '🏝️ 苏梅 · 南海岸探索', color: '#007aff', locations: [
-    { name: '祖父祖母石 Hin Ta & Hin Yai', lat: 9.4520, lng: 100.0400, type: 'spot', time: '10:30',
-      desc: '苏梅地标岩石景观，免费，海景壮观',
-      budget: '免费', detail: '苏梅岛最著名的自然地标，两块造型奇特的岩石。免费参观，停车方便。拍完照可以沿着台阶下到海边，晴天海景极美。上午去光线最佳。',
-      gmap: 'Hin+Ta+Hin+Yai+Koh+Samui' },
-    { name: '拉迈海滩', lat: 9.4670, lng: 100.0460, type: 'spot', time: '12:00',
-      desc: '比查汶安静，适合继续躺，海边餐厅午餐',
-      budget: '免费', detail: '查汶海滩向南10分钟车程，游客少、更安静。适合不喜欢热闹的人。海边有几家不错的餐厅，边吃边看海。',
-      gmap: 'Lamai+Beach+Koh+Samui' },
-    { name: 'Central Samui 购物中心', lat: 9.5300, lng: 100.0550, type: 'spot', time: '15:00',
-      desc: '岛上最大商场，Boots药妆+泰国本土品牌+美食广场，消暑好去处',
-      budget: '看心情', detail: '苏梅最大购物中心，有空调！Boots药妆比国内便宜30–50%，泰国本土香薰品牌（Harnn、Thann）值得买。美食广场有泰餐、日料、西餐，选择多。',
-      pay: { card: 1, alipay: 1, wechat: 1, cash: 0.5 },
-      gmap: 'Central+Samui+Shopping+Mall' },
-    { name: '查汶海边日落晚餐', lat: 9.5270, lng: 100.0620, type: 'food', time: '18:30',
-      desc: '选家海边餐厅看日落，Ark Bar沙滩晚餐或Crab Samui海鲜',
-      budget: '¥80–150/人', detail: 'Ark Bar是查汶最热闹的沙滩酒吧+餐厅，傍晚开始有DJ，可以坐在沙袋上看日落。Crab Samui主打海鲜（全熟做法），咖喱蟹招牌。9月非旺季，不用排队。',
-      pay: { cash: 1, card: 1 },
-      gmap: 'Ark+Bar+Chaweng+Koh+Samui' }
-  ]},
-
-  // ── DAY 8: 苏梅岛 · 自由日 ──
-  { id: 8, label: 'D8 苏梅', date: '9月29日 周二', title: '🏝️ 苏梅 · 自由探索日', color: '#007aff', locations: [
-    { name: '查汶海滩躺平', lat: 9.5290, lng: 100.0600, type: 'spot', time: '09:00',
-      desc: '全天无计划，沙滩、游泳、看书、晒太阳',
-      budget: '免费', detail: '海岛真正的正确打开方式——什么都不做。查汶沙滩上午人少，海水最清。沙滩上可以租躺椅（约100THB/天），买颗椰子喝着发呆。',
-      gmap: 'Chaweng+Beach+Koh+Samui' },
-    { name: 'Fisherman\'s Village (Bophut)', lat: 9.5610, lng: 100.0300, type: 'spot', time: '15:00',
-      desc: '波希米亚老街区，海边餐厅+精品店，不是周五夜市日但街区本身值得逛',
-      budget: '免费逛', detail: '步行街夜市只在周五，但周二来反而人少清净。老木屋保留完好，海边餐厅景色好。推荐Coco Tam\'s（沙滩秋千餐厅，拍照出片）和Summer by Coco Tam\'s。',
-      gmap: 'Fisherman+Village+Bophut+Koh+Samui' },
-    { name: 'Nathon 老镇', lat: 9.5370, lng: 99.9350, type: 'spot', time: '—',
-      desc: '备选：苏梅行政中心，复古木屋老街+码头日落',
-      budget: '免费', detail: '苏梅岛的行政和商业中心，保留了很多老木屋。Nathon码头是看日落的最佳地点之一。有便宜的本地餐厅和杂货店。',
-      gmap: 'Nathon+Town+Koh+Samui' },
-    { name: 'Bophut海边晚餐', lat: 9.5610, lng: 100.0300, type: 'food', time: '19:00',
-      desc: 'Fisherman\'s Village海边餐厅，苏梅最后一晚好好吃一顿',
-      budget: '¥100–200/人', detail: '推荐：Summer by Coco Tam\'s（海鲜+鸡尾酒）、Happy Elephant（泰餐+海景）。Bophut的日落是全岛最美的，提前到占个好位置。',
+  // ── DAY 7: 普吉岛 · 老城探索 ──
+  { id: 7, label: 'D7 普吉', date: '9月28日 周一', title: '🏝️ 普吉 · 老城+日落', color: '#ff2d55', locations: [
+    { name: '普吉老城区 (Old Town)', lat: 7.8850, lng: 98.3900, type: 'spot', time: '10:30',
+      desc: '中葡风格彩色建筑群，Thalang Road+Soi Rommanee，ins拍照圣地',
+      budget: '免费', detail: '普吉老城是联合国教科文组织创意城市。彩色外墙+百叶窗+中葡骑楼，每条巷子都出片。推荐打卡：Soi Rommanee（粉色巷）、Chinpracha House（老宅博物馆）。咖啡馆：Rush Coffee、Campus Coffee。',
+      gmap: 'Phuket+Old+Town+Thalang+Road' },
+    { name: 'Raya Restaurant 泰南菜', lat: 7.8845, lng: 98.3890, type: 'food', time: '12:00',
+      desc: '老城内百年老宅餐厅，普吉泰南菜代表，咖喱蟹肉+红烧肉',
+      budget: '¥60–100/人', detail: '普吉岛名气最大的餐厅之一，开在百年中葡老宅里。招牌：Crab Meat in Coconut Milk（椰奶咖喱蟹肉）、Braised Pork Belly（泰式红烧肉）。不吃生食完全OK，泰南菜以炖煮和咖喱为主。',
       pay: { card: 1, cash: 1 },
-      gmap: 'Coco+Tams+Koh+Samui' }
+      gmap: 'Raya+Restaurant+Phuket+Old+Town' },
+    { name: '大佛 Big Buddha 观景台', lat: 7.8275, lng: 98.3130, type: 'spot', time: '15:00',
+      desc: '山顶地标，不进殿只在平台拍照，俯瞰普吉全景',
+      budget: '免费', detail: '普吉岛最高点之一，45米高白色大佛。不进殿只在外面平台拍照即可。山景+海景360度全景。注意：穿长裤（过膝），不能穿露肩装。建议打车上下山，约30分钟。',
+      gmap: 'Big+Buddha+Phuket' },
+    { name: '神仙半岛 Promthep Cape', lat: 7.7625, lng: 98.3045, type: 'spot', time: '17:30',
+      desc: '🌅 普吉最美日落点，免费，安达曼海尽收眼底',
+      budget: '免费', detail: '普吉岛最南端的地标，日落时分金黄海面+棕榈树剪影，普吉必去。建议17:00前到占好位置。旁边有灯塔可以爬上去拍照。回芭东打车约40分钟。',
+      gmap: 'Promthep+Cape+Phuket+Sunset' }
   ]},
 
-  // ── DAY 9: 苏梅岛 · 收尾 ──
-  { id: 9, label: 'D9 苏梅', date: '9月30日 周三', title: '🏝️ 苏梅 · 收尾日', color: '#007aff', locations: [
-    { name: '查汶海滩最后时光', lat: 9.5290, lng: 100.0600, type: 'spot', time: '09:00',
-      desc: '最后的海滩时光，补买手信，做个轻松的足部按摩',
-      budget: '看心情', detail: '最后的躺平时光。如果想买手信，Central Samui或查汶大街的药店/便利店可以扫货：鼻通、青草膏、泰式咖喱酱包、椰子制品。',
-      gmap: 'Chaweng+Beach+Koh+Samui' },
-    { name: '收尾泰餐', lat: 9.5280, lng: 100.0570, type: 'food', time: '19:00',
-      desc: '最后一顿泰餐，查汶大街随便找家顺眼的吃就行',
-      budget: '¥60–100/人', detail: '不用刻意找名店，查汶大街随便一家泰餐都不会踩雷。推荐最后再吃一次Pad Thai和芒果糯米饭，回国就吃不到了。',
-      pay: { cash: 1, card: 0.5 },
-      gmap: 'Chaweng+Beach+Road+Koh+Samui' }
+  // ── DAY 8: 普吉岛 · 海滩日 ──
+  { id: 8, label: 'D8 普吉', date: '9月29日 周二', title: '🏝️ 普吉 · 卡塔+卡伦海滩', color: '#ff2d55', locations: [
+    { name: '卡塔海滩 Kata Beach', lat: 7.8200, lng: 98.3000, type: 'spot', time: '09:00',
+      desc: '普吉三大海滩之一，沙细浪小，比芭东安静很多',
+      budget: '免费', detail: '卡塔海滩呈弧形海湾，沙质比芭东好，浪也小。适合游泳和浮潜（岸边就有小鱼）。上午人少，躺在沙滩椅上发呆。路边有餐厅和7-11。',
+      gmap: 'Kata+Beach+Phuket' },
+    { name: '卡伦海滩 Karon Beach', lat: 7.8500, lng: 98.2930, type: 'spot', time: '13:00',
+      desc: '普吉第二大海滩，绵延5公里，更安静',
+      budget: '免费', detail: '卡塔和卡伦相邻，步行可达。卡伦海滩更宽阔，沙质略粗但浪大好看。适合散步和拍照。⚠️ 雨季浪大时有离岸流，留意红旗警示。',
+      gmap: 'Karon+Beach+Phuket' },
+    { name: 'Central Phuket 购物中心', lat: 7.8920, lng: 98.3670, type: 'spot', time: '15:00',
+      desc: '普吉最大商场，Floresta馆奢侈品+Festival馆超市美食，空调避暑',
+      budget: '看心情', detail: '两个馆连在一起。Floresta有国际品牌和泰国设计师店，Festival有超市、Boots药妆和超大美食广场。避雨+购物一站式解决。',
+      pay: { card: 1, alipay: 1, wechat: 1, cash: 0.5 },
+      gmap: 'Central+Phuket+Floresta' }
+  ]},
+
+  // ── DAY 9: 普吉岛 · 自由收尾 ──
+  { id: 9, label: 'D9 普吉', date: '9月30日 周三', title: '🏝️ 普吉 · 自由收尾日', color: '#ff2d55', locations: [
+    { name: '芭东海滩最后时光', lat: 7.8960, lng: 98.2960, type: 'spot', time: '09:00',
+      desc: '最后的海滩时光，补买手信，江西冷商场或Central Phuket',
+      budget: '看心情', detail: '最后一天不用赶。上午海边散步，去江西冷（Jungceylon）或Central Phuket扫货：青草膏、鼻通、泰式咖喱酱、椰子油、Boots药妆。下午可以做个街边足部按摩（200THB/小时）。',
+      gmap: 'Jungceylon+Shopping+Mall+Patong' },
+    { name: '芭东海边晚餐', lat: 7.8940, lng: 98.2950, type: 'food', time: '19:00',
+      desc: '最后一顿泰餐，芭东海边找家顺眼的餐厅收尾',
+      budget: '¥60–100/人', detail: '芭东海滩路边泰餐厅一排排，不用刻意找名店。推荐最后吃一次Tom Yum Goong和Pad Thai，回国味道就不一样了。Baan Rim Pa（悬崖餐厅）如果预算允许也很值得。',
+      pay: { cash: 1, card: 1 },
+      gmap: 'Baan+Rim+Pa+Patong+Phuket' }
   ]},
 
   // ── DAY 10: 回家 ──
-  { id: 10, label: 'D10 回程', date: '10月1日 周四', title: '🛫 苏梅 → 曼谷 → 福州', color: '#ff3b30', locations: [
-    { name: '苏梅岛机场 (USM)', lat: 9.5478, lng: 100.0625, type: 'transport', time: '06:00',
-      desc: '曼谷航空 PG100，苏梅→曼谷素万那普，1小时15分',
-      budget: '¥500–600/人', detail: '最早班机，04:00退房出发。PG100每天都有，06:00–07:15。苏梅机场很小，提前1小时到就够。',
-      gmap: 'Samui+International+Airport' },
-    { name: '曼谷素万那普机场 (BKK)', lat: 13.6900, lng: 100.7501, type: 'transport', time: '07:15',
-      desc: '中转曼谷，换乘回福州航班',
-      budget: '转机', detail: '⚠️ 关键：PG100到达BKK是07:15。如果接春秋航空BKK→FOC上午班（可能09:00左右），中转仅1小时50分，国际转机非常危险！强烈建议：①提前确认春秋确切航班时刻再买票，确保中转≥3小时；或②9月30日晚飞曼谷住机场酒店，10月1日从容登机。',
+  { id: 10, label: 'D10 回程', date: '10月1日 周四', title: '🛫 普吉 → 曼谷 → 福州', color: '#ff3b30', locations: [
+    { name: '普吉国际机场 (HKT)', lat: 8.1132, lng: 98.3169, type: 'transport', time: '08:00',
+      desc: '普吉→曼谷，泰越捷/亚航，约1.5小时，早班机飞到曼谷中转',
+      budget: '¥150–250/人', detail: '普吉到曼谷每天几十班，选早班机（8:00-10:00之间）。到曼谷素万那普（BKK）约1.5小时。建议提前1天在航司官网值机，普吉机场旺季排队多但9月还好。',
+      gmap: 'Phuket+International+Airport' },
+    { name: '曼谷素万那普机场 (BKK)', lat: 13.6900, lng: 100.7501, type: 'transport', time: '11:00',
+      desc: '中转曼谷，换乘回福州航班，确保中转≥3小时',
+      budget: '转机', detail: '⚠️ 重要：普吉→曼谷落地后需从国内航站楼转到国际航站楼。春秋BKK→FOC每周二四六执飞，10月1日是周四有航班。确保两段航班间隔≥3小时，或选春秋下午航班。如果上午赶不上，曼谷机场附近有酒店可以休息。',
       pay: { card: 1, cash: 1 },
       gmap: 'Suvarnabhumi+Airport+Bangkok' },
     { name: '福州长乐机场 (FOC)', lat: 25.9350, lng: 119.6630, type: 'transport', time: '—',
       desc: '曼谷→福州直飞，春秋航空（周二四六），约4小时',
-      budget: '¥600–900/人', detail: '春秋航空曼谷→福州每周二、四、六执飞。10月1日是周四，有航班。厦航MF876（17:55–22:20）从10月26日才开始每日直飞，10月1日可能只有中转。请以实际查询为准。',
+      budget: '¥600–900/人', detail: '春秋航空曼谷→福州每周二、四、六执飞。10月1日是周四，有航班。建议订下午航班确保中转时间充足。厦航MF876（17:55–22:20）从10月26日起每日直飞，10月1日可能只有中转。以实际查询为准。',
       gmap: 'Fuzhou+Changle+International+Airport' }
   ]}
 ];
@@ -449,12 +449,12 @@ const DAYS = [
 
 function overviewContent() {
   return `
-<div class="hero"><h1>泰国三城之旅</h1><p class="subtitle">曼谷 → 清迈 → 苏梅岛 · 9月22日–10月1日 · 10天9晚</p></div>
+<div class="hero"><h1>泰国三城之旅</h1><p class="subtitle">曼谷 → 清迈 → 普吉岛 · 9月22日–10月1日 · 10天9晚</p></div>
 <div class="info-grid">
-  <div class="info-card"><div class="label">路线</div><div class="value">福州 ✈ 曼谷 ✈ 清迈 ✈ 苏梅岛 ✈ 福州</div></div>
-  <div class="info-card"><div class="label">酒店</div><div class="value">曼谷2晚 · 清迈3晚 · 苏梅4晚</div></div>
+  <div class="info-card"><div class="label">路线</div><div class="value">福州 ✈ 曼谷 ✈ 清迈 ✈ 普吉岛 ✈ 福州</div></div>
+  <div class="info-card"><div class="label">酒店</div><div class="value">曼谷2晚 · 清迈3晚 · 普吉4晚<br>¥300–400/晚</div></div>
   <div class="info-card"><div class="label">SPA</div><div class="value">Health Land 曼谷 + Lila Thai 清迈</div></div>
-  <div class="info-card"><div class="label">人均预算</div><div class="value">¥7,000–10,000 全包</div></div>
+  <div class="info-card"><div class="label">人均预算</div><div class="value">¥8,000–11,000 全包</div></div>
 </div>
 <div class="section-head">行程概览</div>
 <div class="day-list">${DAYS.slice(1).map(d=>`<div class="card" onclick="go(${d.id})"><div class="name"><span class="dot" style="background:${d.color}"></span>${d.label} · ${d.title}</div><div class="desc">${d.date}</div></div>`).join('')}</div>
@@ -463,7 +463,8 @@ function overviewContent() {
 <div class="pay-summary"><h4>💴 现金为王</h4>泰国夜市、街边摊、双条车大多<span class="warn">只收现金</span>。建议换10,000–15,000泰铢（¥2,000–3,000）随身。<br>7-11、商场、酒店可用支付宝/微信/刷卡。</div>
 <div class="pay-summary"><h4>🧖 SPA需预约</h4>Health Land 和 Lila Thai 都建议<span class="warn">提前1天电话预约</span>，walk-in可能要等很久。<br>小费20–100THB随意，不要给硬币。</div>
 <div class="pay-summary"><h4>🍳 奶奶厨房提前订</h4>Grandma's Home Cooking School 很热门，建议<span class="warn">提前3–7天</span>在飞猪/携程/Klook预订。<br>选上午场可以逛菜市场，选中文老师。</div>
-<div class="pay-summary"><h4>⚠️ 10月1日中转提醒</h4>苏梅→曼谷早班机07:15到BKK，如果接上午的回国航班可能<span class="warn">中转时间不够</span>！<br>建议买票前确认曼谷→福州航班确切时刻，确保中转≥3小时。或9月30日晚飞曼谷住一晚。</div>
+<div class="pay-summary"><h4>⚠️ 普吉九月天气</h4>9月底是普吉雨季末期，<span class="warn">阵雨频繁但间歇放晴</span>。随身带折叠伞，海滩红旗时不要下水。老城区、商场、SPA是完美的雨天备选。</div>
+<div class="pay-summary"><h4>⚠️ 10月1日中转提醒</h4>普吉→曼谷→福州，确保两段航班<span class="warn">中转≥3小时</span>！春秋BKK→FOC每周二四六执飞（10/1是周四✅）。建议订下午航班更从容。</div>
 
 <div class="section-head">图例</div>
 <div class="legend">
@@ -568,7 +569,7 @@ const IN_APP_WEBVIEW = (() => {
 })();
 
 // 城市中文名映射（根据 day 自动带城市上下文）
-const CITY_CN = {1:'曼谷',2:'曼谷',3:'清迈',4:'清迈',5:'清迈',6:'苏梅岛',7:'苏梅岛',8:'苏梅岛',9:'苏梅岛',10:'苏梅岛'};
+const CITY_CN = {1:'曼谷',2:'曼谷',3:'清迈',4:'清迈',5:'清迈',6:'普吉岛',7:'普吉岛',8:'普吉岛',9:'普吉岛',10:'普吉岛'};
 
 function makeKeyword(name, dayIdx) {
   // 提取中文部分或使用完整名称
